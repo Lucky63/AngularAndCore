@@ -13,6 +13,7 @@ var DataService = /** @class */ (function () {
     function DataService(http) {
         this.http = http;
         this.url = "/api/customers";
+        this.url1 = "/api/products";
     }
     DataService.prototype.getCustomers = function () {
         return this.http.get(this.url);
@@ -25,6 +26,19 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.deleteCustomer = function (id) {
         return this.http.delete(this.url + '/' + id);
+    };
+    //Работа с продуктами
+    DataService.prototype.getProducts = function () {
+        return this.http.get(this.url1);
+    };
+    DataService.prototype.createProduct = function (product) {
+        return this.http.post(this.url1, product);
+    };
+    DataService.prototype.updateProduct = function (product) {
+        return this.http.put(this.url1 + '/' + product.id, product);
+    };
+    DataService.prototype.deleteProduct = function (id) {
+        return this.http.delete(this.url1 + '/' + id);
     };
     DataService = __decorate([
         Injectable(),
