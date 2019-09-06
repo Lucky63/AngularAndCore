@@ -9,14 +9,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { ProductComponent } from './product.component';
+import { ProductListComponent } from './product-list.component';
+import { CustomerListComponent } from './customer-list.component';
+import { RouterModule } from '@angular/router';
+import { DataService } from './data.service';
+var appRoutes = [
+    { path: '', component: CustomerListComponent },
+    { path: 'product', component: ProductListComponent },
+];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         NgModule({
-            imports: [BrowserModule, FormsModule, HttpClientModule],
-            declarations: [AppComponent, ProductComponent],
+            imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+            declarations: [AppComponent, ProductListComponent, CustomerListComponent],
+            providers: [DataService],
             bootstrap: [AppComponent]
         })
     ], AppModule);
