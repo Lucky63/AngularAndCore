@@ -28,6 +28,9 @@ var DataService = /** @class */ (function () {
         return this.http.delete(this.url + '/' + id);
     };
     //Работа с продуктами
+    DataService.prototype.getProduct = function (id) {
+        return this.http.get(this.url1 + '/' + id);
+    };
     DataService.prototype.getProducts = function () {
         return this.http.get(this.url1);
     };

@@ -21,7 +21,7 @@ var appRoutes = [
     { path: '', component: CustomerListComponent },
     { path: 'product', component: ProductListComponent },
     { path: 'create', component: ProductCreateComponent },
-    { path: 'edit/:id', component: ProductEditComponent },
+    { path: 'product/edit/:id', component: ProductEditComponent },
     { path: '**', component: NotFoundComponent }
 ];
 var AppModule = /** @class */ (function () {

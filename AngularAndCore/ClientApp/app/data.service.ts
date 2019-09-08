@@ -28,6 +28,9 @@ export class DataService {
 	}
 
 	//Работа с продуктами
+	getProduct(id:number) {
+		return this.http.get(this.url1 + '/' + id);
+	}
 	getProducts() {
 		return this.http.get(this.url1);
 	}

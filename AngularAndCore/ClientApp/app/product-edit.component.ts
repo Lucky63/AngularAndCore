@@ -18,7 +18,7 @@ export class ProductEditComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.id)
-			this.dataService.getProducts()
+			this.dataService.getProduct(this.id)
 				.subscribe((data: Product) => {
 					this.product = data;
 					if (this.product != null) this.loaded = true;

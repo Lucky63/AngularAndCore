@@ -20,7 +20,7 @@ var ProductEditComponent = /** @class */ (function () {
     ProductEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (this.id)
-            this.dataService.getProducts()
+            this.dataService.getProduct(this.id)
                 .subscribe(function (data) {
                 _this.product = data;
                 if (_this.product != null)
