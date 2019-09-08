@@ -29,7 +29,7 @@ var ProductEditComponent = /** @class */ (function () {
     };
     ProductEditComponent.prototype.save = function () {
         var _this = this;
-        this.dataService.updateProduct(this.product).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
+        this.dataService.updateProduct(this.product).subscribe(function (data) { return _this.router.navigateByUrl("/product"); });
     };
     ProductEditComponent = __decorate([
         Component({
