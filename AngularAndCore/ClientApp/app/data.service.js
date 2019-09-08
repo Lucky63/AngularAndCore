@@ -15,6 +15,9 @@ var DataService = /** @class */ (function () {
         this.url = "/api/customers";
         this.url1 = "/api/products";
     }
+    DataService.prototype.getCustomer = function (id) {
+        return this.http.get(this.url + '/' + id);
+    };
     DataService.prototype.getCustomers = function () {
         return this.http.get(this.url);
     };

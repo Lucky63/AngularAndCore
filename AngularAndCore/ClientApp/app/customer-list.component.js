@@ -9,55 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from './data.service';
-import { Customer } from './customer';
 var CustomerListComponent = /** @class */ (function () {
     function CustomerListComponent(dataService) {
         this.dataService = dataService;
-        this.customer = new Customer(); // изменяемый товар
-        this.tableMode = true; // табличный режим
     }
     CustomerListComponent.prototype.ngOnInit = function () {
-        this.loadCustomers(); // загрузка данных при старте компонента  
+        this.load();
     };
-    // получаем данные через сервис
-    CustomerListComponent.prototype.loadCustomers = function () {
+    CustomerListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getCustomers()
-            .subscribe(function (data) { return _this.customers = data; });
+        this.dataService.getCustomers().subscribe(function (data) { return _this.customers = data; });
     };
-    // сохранение данных
-    CustomerListComponent.prototype.save = function () {
+    CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
-        if (this.customer.id == null) {
-            this.dataService.createCustomer(this.customer)
-                .subscribe(function (data) { return _this.customers.push(data); });
-        }
-        else {
-            this.dataService.updateCustomer(this.customer)
-                .subscribe(function (data) { return _this.loadCustomers(); });
-        }
-        this.cancel();
-    };
-    CustomerListComponent.prototype.editCustomer = function (c) {
-        this.customer = c;
-    };
-    CustomerListComponent.prototype.cancel = function () {
-        this.customer = new Customer();
-        this.tableMode = true;
-    };
-    CustomerListComponent.prototype.delete = function (c) {
-        var _this = this;
-        this.dataService.deleteCustomer(c.id)
-            .subscribe(function (data) { return _this.loadCustomers(); });
-    };
-    CustomerListComponent.prototype.add = function () {
-        this.cancel();
-        this.tableMode = false;
+        this.dataService.deleteCustomer(id).subscribe(function (data) { return _this.load(); });
     };
     CustomerListComponent = __decorate([
         Component({
-            templateUrl: './customer-list.component.html',
-            providers: [DataService]
+            templateUrl: './customer-list.component.html'
         }),
         __metadata("design:paramtypes", [DataService])
     ], CustomerListComponent);

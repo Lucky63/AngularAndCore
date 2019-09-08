@@ -15,10 +15,15 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { NotFoundComponent } from './not-found.component';
 import { CustomerListComponent } from './customer-list.component';
+import { CustomerFormComponent } from './customer-form.component';
+import { CustomerCreateComponent } from './customer-create.component';
+import { CustomerEditComponent } from './customer-edit.component';
 import { RouterModule } from '@angular/router';
 import { DataService } from './data.service';
 var appRoutes = [
     { path: '', component: CustomerListComponent },
+    { path: 'createCustomer', component: CustomerCreateComponent },
+    { path: 'edit/:id', component: CustomerEditComponent },
     { path: 'product', component: ProductListComponent },
     { path: 'create', component: ProductCreateComponent },
     { path: 'product/edit/:id', component: ProductEditComponent },
@@ -30,7 +35,8 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         NgModule({
             imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-            declarations: [AppComponent, ProductListComponent, CustomerListComponent, ProductCreateComponent, ProductEditComponent,
+            declarations: [AppComponent, ProductListComponent, CustomerListComponent, CustomerFormComponent,
+                CustomerCreateComponent, CustomerEditComponent, ProductCreateComponent, ProductEditComponent,
                 ProductFormComponent, NotFoundComponent],
             providers: [DataService],
             bootstrap: [AppComponent]

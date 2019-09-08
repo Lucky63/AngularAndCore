@@ -9,6 +9,9 @@
   <ItemGroup>
     <None Remove="ClientApp\app\app.component.ts" />
     <None Remove="ClientApp\app\app.module.ts" />
+    <None Remove="ClientApp\app\customer-create.component.ts" />
+    <None Remove="ClientApp\app\customer-edit.component.ts" />
+    <None Remove="ClientApp\app\customer-form.component.ts" />
     <None Remove="ClientApp\app\customer-list.component.ts" />
     <None Remove="ClientApp\app\customer.ts" />
     <None Remove="ClientApp\app\data.service.ts" />
@@ -30,6 +33,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer.ts" />
     <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
