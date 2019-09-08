@@ -9,56 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from './data.service';
-import { Product } from './product';
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(dataService) {
         this.dataService = dataService;
-        this.product = new Product(); // изменяемый товар
-        this.tableMode = true; // табличный режим
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        this.loadProducts(); // загрузка данных при старте компонента  
+        this.load();
     };
-    // получаем данные через сервис
-    ProductListComponent.prototype.loadProducts = function () {
+    ProductListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getProducts()
-            .subscribe(function (data) { return _this.products = data; });
+        this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
     };
-    // сохранение данных
-    ProductListComponent.prototype.save = function () {
+    ProductListComponent.prototype.delete = function (id) {
         var _this = this;
-        if (this.product.id == null) {
-            this.dataService.createProduct(this.product)
-                .subscribe(function (data) { return _this.products.push(data); });
-        }
-        else {
-            this.dataService.updateProduct(this.product)
-                .subscribe(function (data) { return _this.loadProducts(); });
-        }
-        this.cancel();
-    };
-    ProductListComponent.prototype.editProduct = function (p) {
-        this.product = p;
-    };
-    ProductListComponent.prototype.cancel = function () {
-        this.product = new Product();
-        this.tableMode = true;
-    };
-    ProductListComponent.prototype.delete = function (p) {
-        var _this = this;
-        this.dataService.deleteProduct(p.id)
-            .subscribe(function (data) { return _this.loadProducts(); });
-    };
-    ProductListComponent.prototype.add = function () {
-        this.cancel();
-        this.tableMode = false;
+        this.dataService.deleteProduct(id).subscribe(function (data) { return _this.load(); });
     };
     ProductListComponent = __decorate([
         Component({
-            selector: 'prod',
-            templateUrl: './product-list.component.html',
-            providers: [DataService]
+            templateUrl: './product-list.component.html'
         }),
         __metadata("design:paramtypes", [DataService])
     ], ProductListComponent);
