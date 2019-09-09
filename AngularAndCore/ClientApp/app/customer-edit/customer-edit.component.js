@@ -20,12 +20,16 @@ var CustomerEditComponent = /** @class */ (function () {
     CustomerEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (this.id)
-            this.dataService.getCustomer(this.id)
-                .subscribe(function (data) {
+            this.dataService.getCustomer(this.id).subscribe(function (data) {
                 _this.customer = data;
                 if (_this.customer != null)
                     _this.loaded = true;
             });
+        this.load();
+    };
+    CustomerEditComponent.prototype.load = function () {
+        var _this = this;
+        this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
     };
     CustomerEditComponent.prototype.save = function () {
         var _this = this;

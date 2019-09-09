@@ -10,14 +10,6 @@ import { DataService } from '../data.service';
 })
 export class CustomerFormComponent {
 	@Input() customer: Customer;
-	products: Product[];
-	constructor(private dataService: DataService) { }
-
-	ngOnInit() {
-		this.load();
-	}
-	load() {
-		this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
-	}
+	
 	
 }
