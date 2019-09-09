@@ -8,13 +8,33 @@ namespace AngularAndCore.Models
 {
 	public class CustomerContext : DbContext
 	{
-		public CustomerContext(DbContextOptions<CustomerContext> options)
-			: base(options)
+		public DbSet<Customer> Customers { get; set; }//Student
+		public DbSet<Product> Products { get; set; }//Course
+
+		public CustomerContext()
 		{
-			
+			//Database.EnsureDeleted();
+			Database.EnsureCreated();
+		}
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<CustomerProduct>()
+				.HasKey(t => new { t.CustomerId, t.ProductId });
+
+			modelBuilder.Entity<CustomerProduct>()
+				.HasOne(sc => sc.Customer)
+				.WithMany(s => s.CustomerProducts)
+				.HasForeignKey(sc => sc.CustomerId);
+
+			modelBuilder.Entity<CustomerProduct>()
+				.HasOne(sc => sc.Product)
+				.WithMany(c => c.CustomerProducts)
+				.HasForeignKey(sc => sc.ProductId);
 		}
 
-		public DbSet<Customer> Customers { get; set; }
-		public DbSet<Product> Products { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CustomerAngilar;Trusted_Connection=True;");
+		}
 	}
 }

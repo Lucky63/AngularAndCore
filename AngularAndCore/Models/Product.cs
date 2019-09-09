@@ -11,5 +11,12 @@ namespace AngularAndCore.Models
 		public string NameProduct { get; set; }
 		public string Description { get; set; }
 		public int Price { get; set; }
+
+		public List<CustomerProduct> CustomerProducts { get; set; }
+
+		public Product()
+		{
+			CustomerProducts = new List<CustomerProduct>();
+		}
 	}
 }

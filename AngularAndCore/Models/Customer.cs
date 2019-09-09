@@ -11,5 +11,12 @@ namespace AngularAndCore.Models
 		public string Name { get; set; }
 		public int PhoneNumber { get; set; }
 		public string Address { get; set; }
+
+		public List<CustomerProduct> CustomerProducts { get; set; }
+
+		public Customer()
+		{
+			CustomerProducts = new List<CustomerProduct>();
+		}
 	}
 }

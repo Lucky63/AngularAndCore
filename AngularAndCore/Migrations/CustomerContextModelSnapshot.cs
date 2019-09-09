@@ -35,6 +35,19 @@ namespace AngularAndCore.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("AngularAndCore.Models.CustomerProduct", b =>
+                {
+                    b.Property<int>("CustomerId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("CustomerId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CustomerProduct");
+                });
+
             modelBuilder.Entity("AngularAndCore.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -50,6 +63,19 @@ namespace AngularAndCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("AngularAndCore.Models.CustomerProduct", b =>
+                {
+                    b.HasOne("AngularAndCore.Models.Customer", "Customer")
+                        .WithMany("CustomerProducts")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AngularAndCore.Models.Product", "Product")
+                        .WithMany("CustomerProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
