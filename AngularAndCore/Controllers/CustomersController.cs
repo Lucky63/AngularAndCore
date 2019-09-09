@@ -32,7 +32,8 @@ namespace AngularAndCore.Controllers
 		[HttpGet("{id}")]
 		public Customer Get(int id)
 		{
-			Customer customer = db.Customers.FirstOrDefault(x => x.Id == id);
+			Customer customer = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(c=>c.Product).FirstOrDefault(x => x.Id == id);
+			
 			return customer;
 		}
 		//Добавление пользователя
