@@ -33,10 +33,10 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\app\customer-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\customer-edit.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\customer-form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\customer-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-create\customer-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-edit\customer-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-form\customer-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\customer-list\customer-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer.ts" />
     <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />

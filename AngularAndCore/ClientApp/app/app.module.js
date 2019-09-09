@@ -14,10 +14,10 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { NotFoundComponent } from './not-found.component';
-import { CustomerListComponent } from './customer-list.component';
-import { CustomerFormComponent } from './customer-form.component';
-import { CustomerCreateComponent } from './customer-create.component';
-import { CustomerEditComponent } from './customer-edit.component';
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { CustomerCreateComponent } from './customer-create/customer-create.component';
+import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { RouterModule } from '@angular/router';
 import { DataService } from './data.service';
 var appRoutes = [
