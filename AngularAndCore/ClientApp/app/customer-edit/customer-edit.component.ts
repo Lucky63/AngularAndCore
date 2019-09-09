@@ -18,8 +18,7 @@ export class CustomerEditComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.id)
-			this.dataService.getCustomer(this.id)
-				.subscribe((data: Customer) => {
+			this.dataService.getCustomer(this.id).subscribe((data: Customer) => {
 					this.customer = data;
 					if (this.customer != null) this.loaded = true;
 				});

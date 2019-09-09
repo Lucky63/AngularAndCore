@@ -9,9 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input } from '@angular/core';
 import { Customer } from '../customer';
+import { DataService } from '../data.service';
 var CustomerFormComponent = /** @class */ (function () {
-    function CustomerFormComponent() {
+    function CustomerFormComponent(dataService) {
+        this.dataService = dataService;
     }
+    CustomerFormComponent.prototype.ngOnInit = function () {
+        this.load();
+    };
+    CustomerFormComponent.prototype.load = function () {
+        var _this = this;
+        this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
+    };
     __decorate([
         Input(),
         __metadata("design:type", Customer)
@@ -20,7 +29,8 @@ var CustomerFormComponent = /** @class */ (function () {
         Component({
             selector: "customer-form",
             templateUrl: './customer-form.component.html'
-        })
+        }),
+        __metadata("design:paramtypes", [DataService])
     ], CustomerFormComponent);
     return CustomerFormComponent;
 }());

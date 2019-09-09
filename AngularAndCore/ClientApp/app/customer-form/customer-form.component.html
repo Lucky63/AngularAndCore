@@ -10,6 +10,18 @@
 	<label>Адрес</label>
 	<input type="text" [(ngModel)]="customer.address" class="form-control" />
 </div>
-<!--<div>
-	<p *ngFor="let c of customer.customerProducts">{{c.product.nameProduct}}</p>
-</div>`-->
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Имя</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let p of products">
+			<td><input type="text" [(ngModel)]="p.nameProduct" class="form-control" /></td>
+		</tr>
+	</tbody>
+</table>
+
