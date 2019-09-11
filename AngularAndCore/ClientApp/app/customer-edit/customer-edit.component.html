@@ -3,9 +3,9 @@
 	<customer-form [(customer)]="customer"></customer-form>
 	<div class="form-group">
 		<label>Продукты</label>
-		<h1 *ngFor="let p of products">
+		<div *ngFor="let p of products">
 			<input type="text" [(ngModel)]="p.nameProduct" class="form-control" />
-		</h1>
+		</div>
 	</div>
 	<div class="form-group">
 		<input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />

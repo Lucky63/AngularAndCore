@@ -21,17 +21,19 @@ export class CustomerEditComponent implements OnInit {
 	ngOnInit() {
 		if (this.id)
 			this.dataService.getCustomer(this.id).subscribe((data: Customer) => {
-					this.customer = data;
+				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
-		this.load();
+			this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
+		
+		
 	}
-	load() {
-		this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
-	}
+	
 
 	save() {
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
+		//Добавляем продукты в метод ПАТ
+		this.dataService.updateCustomerProducts(this.products);
 		
 	}
 }

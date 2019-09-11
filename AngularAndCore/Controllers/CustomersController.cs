@@ -60,7 +60,7 @@ namespace AngularAndCore.Controllers
 				customerOne.PhoneNumber = customer.PhoneNumber;
 				if (products != null)
 				{
-					//получаем выбранные курсы
+					//получаем выбранные продукты
 					foreach (var c in products)
 					{
 						customerOne.CustomerProducts.Add(new CustomerProduct { ProductId = c.Id });

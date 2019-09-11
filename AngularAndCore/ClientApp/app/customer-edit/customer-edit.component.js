@@ -25,15 +25,13 @@ var CustomerEditComponent = /** @class */ (function () {
                 if (_this.customer != null)
                     _this.loaded = true;
             });
-        this.load();
-    };
-    CustomerEditComponent.prototype.load = function () {
-        var _this = this;
         this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
     };
     CustomerEditComponent.prototype.save = function () {
         var _this = this;
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
+        //Добавляем продукты в метод ПАТ
+        this.dataService.updateCustomerProducts(this.products);
     };
     CustomerEditComponent = __decorate([
         Component({
