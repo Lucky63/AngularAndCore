@@ -27,7 +27,7 @@ var DataService = /** @class */ (function () {
     DataService.prototype.updateCustomer = function (customer) {
         return this.http.put(this.url + '/' + customer.id, customer);
     };
-    //Добавляем продукты в метод ПАТ
+    //Добавляем продукты в метод ПУТ
     DataService.prototype.updateCustomerProducts = function (products) {
         return this.http.put(this.url, products);
     };

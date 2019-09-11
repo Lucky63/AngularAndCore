@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { Customer } from '../customer';
 import { Product } from '../product';
+import { CustomerProduct } from '../customerproduct';
 
 @Component({
 	templateUrl: './customer-edit.component.html'
@@ -11,7 +12,9 @@ export class CustomerEditComponent implements OnInit {
 
 	id: number;
 	customer: Customer;    // изменяемый объект
-	products: Product[];
+	products: CustomerProduct[];
+	//product: Product;
+	//cp: CustomerProduct;
 	loaded: boolean = false;
 
 	constructor(private dataService: DataService, private router: Router, activeRoute: ActivatedRoute) {
@@ -24,16 +27,17 @@ export class CustomerEditComponent implements OnInit {
 				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
-			this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
+		this.dataService.getProducts().subscribe((data: CustomerProduct[]) => this.products = data);
 		
 		
 	}
 	
 
 	save() {
+		
+		this.customer.customerProducts=this.products;
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
-		//Добавляем продукты в метод ПАТ
-		this.dataService.updateCustomerProducts(this.products);
+		
 		
 	}
 }

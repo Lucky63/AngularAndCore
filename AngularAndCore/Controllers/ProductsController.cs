@@ -1,5 +1,6 @@
 ﻿using AngularAndCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace AngularAndCore.Controllers
 		[HttpGet]
 		public IEnumerable<Product> Get()
 		{
-			return db.Products.ToList();
+			return db.Products.Include(x => x.CustomerProducts).ToList();
 		}
 
 		[HttpGet("{id}")]

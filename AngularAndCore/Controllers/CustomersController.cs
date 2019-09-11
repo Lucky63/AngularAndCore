@@ -50,7 +50,7 @@ namespace AngularAndCore.Controllers
 		}
 		//Редактирование пользователя
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody]Customer customer, Product[] products)
+		public IActionResult Put(int id, [FromBody]Customer customer)
 		{
 			if (ModelState.IsValid)
 			{
@@ -58,14 +58,9 @@ namespace AngularAndCore.Controllers
 				customerOne.Name = customer.Name;
 				customerOne.Address = customer.Address;
 				customerOne.PhoneNumber = customer.PhoneNumber;
-				if (products != null)
-				{
-					//получаем выбранные продукты
-					foreach (var c in products)
-					{
-						customerOne.CustomerProducts.Add(new CustomerProduct { ProductId = c.Id });
-					}
-				}
+				customerOne.CustomerProducts = customer.CustomerProducts;
+
+
 
 
 				db.Update(customerOne);

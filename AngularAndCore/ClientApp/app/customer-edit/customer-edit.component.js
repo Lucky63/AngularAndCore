@@ -14,6 +14,8 @@ var CustomerEditComponent = /** @class */ (function () {
     function CustomerEditComponent(dataService, router, activeRoute) {
         this.dataService = dataService;
         this.router = router;
+        //product: Product;
+        //cp: CustomerProduct;
         this.loaded = false;
         this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }
@@ -25,13 +27,12 @@ var CustomerEditComponent = /** @class */ (function () {
                 if (_this.customer != null)
                     _this.loaded = true;
             });
-        this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
+        this.dataService.getProducts().subscribe(function (data) { return _this.productss = data; });
     };
     CustomerEditComponent.prototype.save = function () {
         var _this = this;
+        this.customer.customerProducts = this.productss;
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
-        //Добавляем продукты в метод ПАТ
-        this.dataService.updateCustomerProducts(this.products);
     };
     CustomerEditComponent = __decorate([
         Component({
