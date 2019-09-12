@@ -3,12 +3,14 @@
 	<customer-form [(customer)]="customer"></customer-form>
 	<div class="form-group">
 		<label>Продукты</label>
-		<div *ngFor="let p of products">
-			<input type="text" [(ngModel)]="p.nameProduct" class="form-control" />
-		</div>
+		<select class="form-control" name="Productid" [(ngModel)]="Productid">
+			<option *ngFor="let c of products" [value]="c.id">
+				{{c.nameProduct}}
+			</option>
+		</select>
 	</div>
 	<div class="form-group">
-		<input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+		<input type="button" value="Сохранить" (click)="save(Productid)" class="btn btn-success" />
 	</div>
 </div>
 <a routerLink="/" class="nav-link">Назад к списку</a>

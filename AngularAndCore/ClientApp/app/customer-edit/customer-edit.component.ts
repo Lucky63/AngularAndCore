@@ -12,9 +12,8 @@ export class CustomerEditComponent implements OnInit {
 
 	id: number;
 	customer: Customer;    // изменяемый объект
-	products: CustomerProduct[];
-	//product: Product;
-	//cp: CustomerProduct;
+	products: Product[];
+	
 	loaded: boolean = false;
 
 	constructor(private dataService: DataService, private router: Router, activeRoute: ActivatedRoute) {
@@ -27,15 +26,15 @@ export class CustomerEditComponent implements OnInit {
 				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
-		this.dataService.getProducts().subscribe((data: CustomerProduct[]) => this.products = data);
+		this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
 		
 		
 	}
 	
 
-	save() {
+	save(Productid: number) {
 		
-		this.customer.customerProducts=this.products;
+		this.customer.customerProducts.push(new CustomerProduct(Productid));
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
 		
 		

@@ -1,9 +1,6 @@
 var CustomerProduct = /** @class */ (function () {
-    function CustomerProduct(Customerid, customer, Productid, product) {
-        this.Customerid = Customerid;
-        this.customer = customer;
+    function CustomerProduct(Productid) {
         this.Productid = Productid;
-        this.product = product;
     }
     return CustomerProduct;
 }());
