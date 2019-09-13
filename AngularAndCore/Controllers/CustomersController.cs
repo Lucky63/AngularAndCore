@@ -26,7 +26,7 @@ namespace AngularAndCore.Controllers
 		[HttpGet]
 		public IEnumerable<Customer> Get()
 		{
-			return db.Customers.Include(x=> x.CustomerProducts).ToList();
+			return db.Customers.Include(x=> x.CustomerProducts).ThenInclude(x=>x.Product).ToList();
 		}
 
 		[HttpGet("{id}")]
@@ -58,6 +58,7 @@ namespace AngularAndCore.Controllers
 				customerOne.Name = customer.Name;
 				customerOne.Address = customer.Address;
 				customerOne.PhoneNumber = customer.PhoneNumber;
+				
 				customerOne.CustomerProducts = customer.CustomerProducts;
 
 

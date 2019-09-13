@@ -27,11 +27,7 @@ export class DataService {
 
 		return this.http.put(this.url + '/' + customer.id, customer);
 	}
-	//Добавляем продукты в метод ПУТ
-	updateCustomerProducts(products:Product[]) {
-
-		return this.http.put(this.url, products);
-	}
+	
 	deleteCustomer(id: number) {
 		return this.http.delete(this.url + '/' + id);
 	}
