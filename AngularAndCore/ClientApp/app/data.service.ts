@@ -25,7 +25,15 @@ export class DataService {
 	}
 	updateCustomer(customer: Customer) {
 
-		return this.http.put(this.url + '/' + customer.id, customer);
+		return this.http.put(this.url + '/' + customer.id, customer, { responseType: 'text' });
+		//	pipe(
+		//	map((res: string) => {
+		//		try {
+		//			return JSON.parse(res);
+		//		} catch {
+		//			return null;
+		//		}
+		//}));
 	}
 	
 	deleteCustomer(id: number) {

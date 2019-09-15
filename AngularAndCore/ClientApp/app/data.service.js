@@ -25,7 +25,15 @@ var DataService = /** @class */ (function () {
         return this.http.post(this.url, customer);
     };
     DataService.prototype.updateCustomer = function (customer) {
-        return this.http.put(this.url + '/' + customer.id, customer);
+        return this.http.put(this.url + '/' + customer.id, customer, { responseType: 'text' });
+        //	pipe(
+        //	map((res: string) => {
+        //		try {
+        //			return JSON.parse(res);
+        //		} catch {
+        //			return null;
+        //		}
+        //}));
     };
     DataService.prototype.deleteCustomer = function (id) {
         return this.http.delete(this.url + '/' + id);
