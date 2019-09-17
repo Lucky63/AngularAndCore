@@ -15,6 +15,7 @@
     <None Remove="ClientApp\app\customer-list.component.ts" />
     <None Remove="ClientApp\app\customer.ts" />
     <None Remove="ClientApp\app\customerProduct.ts" />
+    <None Remove="ClientApp\app\customerProductViewModel.ts" />
     <None Remove="ClientApp\app\customerViewModel.ts" />
     <None Remove="ClientApp\app\data.service.ts" />
     <None Remove="ClientApp\app\not-found.component.ts" />

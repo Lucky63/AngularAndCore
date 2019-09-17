@@ -28,15 +28,14 @@ namespace AngularAndCore.Controllers
 		public IEnumerable<CustomerViewModel> Get()
 		{
 			
-			List<CustomerViewModel> cusvm = db.Customers.Select(c => new CustomerViewModel
+			List<CustomerViewModel> cusvm = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).ToList().Select(c => new CustomerViewModel
 			{
 			Id = c.Id,
 			Name = c.Name,
 			Address = c.Address,
 			PhoneNumber = c.PhoneNumber,
 			Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
-		})
-		.ToList();
+		}).ToList();
 			return cusvm.ToList();
 			//return db.Customers.Include(x=> x.CustomerProducts).ThenInclude(x=>x.Product).ToList();
 		}

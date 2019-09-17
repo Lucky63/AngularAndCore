@@ -13,10 +13,12 @@ namespace AngularAndCore.ViewModels
 		{
 			Customerid = cp.CustomerId;
 			Productid = cp.ProductId;
-			//NameProduct = cp.Product.NameProduct;
+			NameProduct = cp.Product.NameProduct;
 		}
 		public int Customerid { get; set; }
 		public int Productid { get; set; }
-		//public string NameProduct { get; set; }
+
+		public string NameProduct { get; set; }
+
 	}
 }
