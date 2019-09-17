@@ -34,7 +34,7 @@ namespace AngularAndCore.Controllers
 			Name = c.Name,
 			Address = c.Address,
 			PhoneNumber = c.PhoneNumber,
-			Product = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
+			Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
 		})
 		.ToList();
 			return cusvm.ToList();

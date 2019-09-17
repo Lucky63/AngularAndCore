@@ -12,6 +12,6 @@ namespace AngularAndCore.Models
 		public string Name { get; set; }
 		public int PhoneNumber { get; set; }
 		public string Address { get; set; }
-		public List<ProductViewModel> Product { get; set; }
+		public List<ProductViewModel> Products { get; set; }
 	}
 }

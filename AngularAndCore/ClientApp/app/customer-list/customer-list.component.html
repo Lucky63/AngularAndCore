@@ -10,6 +10,7 @@
 			<td>Номер телефона</td>
 			<td>Адрес</td>
 			<td></td>
+			<td>АйдиПродукта</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,6 +22,7 @@
 				<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Изменить</a>
 				<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Удалить</button>
 			</td>
+			<td *ngFor="let c of p.products">{{c?.productid}}</td>
 		</tr>
 	</tbody>
 </table>
