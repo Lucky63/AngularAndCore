@@ -1,4 +1,5 @@
 ﻿using AngularAndCore.Models;
+using AngularAndCore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,9 +25,18 @@ namespace AngularAndCore.Controllers
 			}
 		}
 		[HttpGet]
-		public IEnumerable<Product> Get()
+		public IEnumerable<ProductViewModel> Get()
 		{
-			return db.Products.Include(x => x.CustomerProducts).ToList();
+			List<ProductViewModel> prodvm = db.Products.Select(c => new ProductViewModel
+			{
+				Id = c.Id,
+				NameProduct = c.NameProduct,
+				Description = c.Description,
+				Price = c.Price
+								
+			}).ToList();
+			return prodvm.ToList();
+			//return db.Products.Include(x => x.CustomerProducts).ToList();
 		}
 
 		[HttpGet("{id}")]
