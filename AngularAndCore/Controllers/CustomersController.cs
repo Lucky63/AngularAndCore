@@ -41,9 +41,19 @@ namespace AngularAndCore.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public Customer Get(int id)
+		public CustomerViewModel Get(int id)
 		{
-			Customer customer = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(c=>c.Product).FirstOrDefault(x => x.Id == id);
+			List<CustomerViewModel> cusid = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).ToList().Select(c => new CustomerViewModel
+			{
+				Id = c.Id,
+				Name = c.Name,
+				Address = c.Address,
+				PhoneNumber = c.PhoneNumber,
+				Products = c.CustomerProducts.Select(x => new ProductViewModel(x)).ToList()
+			}).ToList();
+
+
+			CustomerViewModel customer = cusid.FirstOrDefault(x => x.Id == id);
 			
 			return customer;
 		}
@@ -61,7 +71,7 @@ namespace AngularAndCore.Controllers
 		}
 		//Редактирование пользователя
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody]Customer customer)
+		public IActionResult Put(int id, [FromBody]CustomerViewModel customer)
 		{
 			if (ModelState.IsValid)
 			{
@@ -69,8 +79,15 @@ namespace AngularAndCore.Controllers
 				customerOne.Name = customer.Name;
 				customerOne.Address = customer.Address;
 				customerOne.PhoneNumber = customer.PhoneNumber;
+
+				if (customer.Products != null)
+				{
+					foreach(var n in customer.Products)
+					{
+						customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = n.Productid });
+					}
+				}
 				
-				customerOne.CustomerProducts = customer.CustomerProducts;
 
 
 

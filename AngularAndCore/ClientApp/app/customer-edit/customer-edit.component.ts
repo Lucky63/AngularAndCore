@@ -4,6 +4,8 @@ import { DataService } from '../data.service';
 import { Customer } from '../customer';
 import { Product } from '../product';
 import { CustomerProduct } from '../customerproduct';
+import { CustomerViewModel } from '../customerViewModel';
+import { ProductViewModel } from '../productViewModel';
 
 @Component({
 	templateUrl: './customer-edit.component.html'
@@ -11,7 +13,7 @@ import { CustomerProduct } from '../customerproduct';
 export class CustomerEditComponent implements OnInit {
 
 	id: number;
-	customer: Customer;    // изменяемый объект
+	customer: CustomerViewModel;    // изменяемый объект
 	products: Product[];
 	
 	loaded: boolean = false;
@@ -22,7 +24,7 @@ export class CustomerEditComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.id)
-			this.dataService.getCustomer(this.id).subscribe((data: Customer) => {
+			this.dataService.getCustomer(this.id).subscribe((data: CustomerViewModel) => {
 				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
@@ -32,9 +34,9 @@ export class CustomerEditComponent implements OnInit {
 	}
 	
 
-	save(Productid: number) {
+	save(productid: number) {
 		
-		this.customer.customerProducts.push(new CustomerProduct(Productid));
+		this.customer.products.push(new ProductViewModel(productid));
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
 		
 		

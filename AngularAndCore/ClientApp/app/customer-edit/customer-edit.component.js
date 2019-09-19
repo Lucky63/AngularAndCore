@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { CustomerProduct } from '../customerproduct';
+import { ProductViewModel } from '../productViewModel';
 var CustomerEditComponent = /** @class */ (function () {
     function CustomerEditComponent(dataService, router, activeRoute) {
         this.dataService = dataService;
@@ -28,9 +28,9 @@ var CustomerEditComponent = /** @class */ (function () {
             });
         this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
     };
-    CustomerEditComponent.prototype.save = function (Productid) {
+    CustomerEditComponent.prototype.save = function (productid) {
         var _this = this;
-        this.customer.customerProducts.push(new CustomerProduct(Productid));
+        this.customer.products.push(new ProductViewModel(productid));
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
     };
     CustomerEditComponent = __decorate([
