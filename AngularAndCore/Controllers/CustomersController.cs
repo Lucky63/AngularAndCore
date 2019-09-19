@@ -75,23 +75,27 @@ namespace AngularAndCore.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				Customer customerOne = db.Customers.Find(customer.Id);
-				customerOne.Name = customer.Name;
-				customerOne.Address = customer.Address;
-				customerOne.PhoneNumber = customer.PhoneNumber;
+				Customer customerOne = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).FirstOrDefault(x=>x.Id==id);
+				List<int> idprod=new List<int>();
+				foreach(var t in customerOne.CustomerProducts)
+				{
+					idprod.Add(t.ProductId);
+				}
 
 				if (customer.Products != null)
 				{
 					foreach(var n in customer.Products)
 					{
-						customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = n.Productid });
+						foreach(var b in idprod)
+						{
+							if(b !=n.Productid)
+							{
+								customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = n.Productid });
+							}
+						}
+						
 					}
 				}
-				
-
-
-
-
 				db.Update(customerOne);
 				db.SaveChanges();
 				return Ok(customerOne);
