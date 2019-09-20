@@ -76,8 +76,11 @@ namespace AngularAndCore.Controllers
 			if (ModelState.IsValid)
 			{
 				Customer customerOne = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).FirstOrDefault(x=>x.Id== id);
-								
-				if(customerOne.CustomerProducts.Count < customer.Products.Count)
+				customerOne.Name = customer.Name;
+				customerOne.Address = customer.Address;
+				customerOne.PhoneNumber = customer.PhoneNumber;
+				
+				if (customerOne.CustomerProducts.Count < customer.Products.Count)
 				{
 					List<int> idprodOne = new List<int>();
 					foreach (var t in customerOne.CustomerProducts)
