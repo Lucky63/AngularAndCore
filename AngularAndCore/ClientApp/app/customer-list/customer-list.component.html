@@ -9,8 +9,9 @@
 			<td>Имя</td>
 			<td>Номер телефона</td>
 			<td>Адрес</td>
-			<td></td>
-			<td>АйдиПродукта</td>
+			<td>Продукты клиента</td>
+			<td>Операции</td>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -19,10 +20,18 @@
 			<td>{{p?.phoneNumber}}</td>
 			<td>{{p?.address}}</td>
 			<td>
+				<select class="form-control">
+					<option *ngFor="let c of  p.products">
+						{{c.nameProduct}}
+					</option>
+				</select>
+				
+			</td>
+			<td>
 				<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Изменить</a>
 				<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Удалить</button>
 			</td>
-			<td *ngFor="let c of p.products">{{c?.nameProduct}}</td>
+			
 		</tr>
 	</tbody>
 </table>
