@@ -15,7 +15,7 @@ export class CustomerEditComponent implements OnInit {
 	id: number;
 	customer: CustomerViewModel;    // изменяемый объект
 	products: Product[];
-	
+	num: number;
 	loaded: boolean = false;
 
 	constructor(private dataService: DataService, private router: Router, activeRoute: ActivatedRoute) {
@@ -35,8 +35,8 @@ export class CustomerEditComponent implements OnInit {
 	
 
 	save(productid: number) {
-		
-		this.customer.products.push(new ProductViewModel(productid));
+		if (productid != null)
+			this.customer.products.push(new ProductViewModel(productid));
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
 		
 		

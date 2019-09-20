@@ -30,7 +30,8 @@ var CustomerEditComponent = /** @class */ (function () {
     };
     CustomerEditComponent.prototype.save = function (productid) {
         var _this = this;
-        this.customer.products.push(new ProductViewModel(productid));
+        if (productid != null)
+            this.customer.products.push(new ProductViewModel(productid));
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
     };
     CustomerEditComponent = __decorate([
