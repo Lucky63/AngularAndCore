@@ -76,23 +76,45 @@ namespace AngularAndCore.Controllers
 			if (ModelState.IsValid)
 			{
 				Customer customerOne = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).FirstOrDefault(x=>x.Id== id);
-				
-
-				List<int> idprodCus = new List<int>();
 								
-				foreach (var t in customer.Products)
-				{
-					idprodCus.Add(t.Productid);
-				}
 				if(customerOne.CustomerProducts.Count < customer.Products.Count)
 				{
+					List<int> idprodOne = new List<int>();
+					foreach (var t in customerOne.CustomerProducts)
+					{
+						idprodOne.Add(t.ProductId);
+					}
+					
+					List<int> idprodCus = new List<int>();
 
+					foreach (var t in customer.Products)
+					{
+						idprodCus.Add(t.Productid);
+					}					
 
 					int number = idprodCus[idprodCus.Count - 1];
-					customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
-				}
-				
-				
+
+					List<int> lold = new List<int>();
+					List<int> lnew = new List<int>();
+					foreach (var t in idprodOne)
+					{
+						if(number != t)
+						{
+							lold.Add(t);
+						}
+						else
+						{
+							lnew.Add(number);
+						}
+
+					}
+
+					if (lnew.Count == 0)
+					{
+						customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
+					}			
+					
+				}	
 				
 				db.Update(customerOne);
 				db.SaveChanges();
