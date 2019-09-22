@@ -6,5 +6,5 @@ export class Product {
 		public nameProduct?: string,
 		public description?: string,
 		public price?: number,
-		public customerProducts?: CustomerProduct[])  { }
+		)  { }
 }

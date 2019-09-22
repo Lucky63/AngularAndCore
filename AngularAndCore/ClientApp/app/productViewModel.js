@@ -1,8 +1,9 @@
 var ProductViewModel = /** @class */ (function () {
-    function ProductViewModel(productid, customerid, id, nameProduct, description, price) {
+    function ProductViewModel(productid, customerid, 
+    //public id?: number,
+    nameProduct, description, price) {
         this.productid = productid;
         this.customerid = customerid;
-        this.id = id;
         this.nameProduct = nameProduct;
         this.description = description;
         this.price = price;

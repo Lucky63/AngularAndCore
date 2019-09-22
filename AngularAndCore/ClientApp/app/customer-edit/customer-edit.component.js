@@ -22,14 +22,22 @@ var CustomerEditComponent = /** @class */ (function () {
         var _this = this;
         if (this.id)
             this.dataService.getCustomer(this.id).subscribe(function (data) {
-                _this.customer = data;
+                _this.customer = data, _this.customer.products = data.products;
                 if (_this.customer != null)
                     _this.loaded = true;
             });
-        this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
+        this.dataService.getProducts().subscribe(function (data) { return _this.allproducts = data; });
+        for (var _i = 0, _a = this.customer.products; _i < _a.length; _i++) {
+            var i = _a[_i];
+            this.num.push(i.productid);
+        }
     };
-    CustomerEditComponent.prototype.save = function (productid) {
+    CustomerEditComponent.prototype.save = function (productid, productDel) {
         var _this = this;
+        if (productDel != null) {
+            var pos = this.num.indexOf(productDel);
+            this.customer.products.slice(pos, 1);
+        }
         if (productid != null)
             this.customer.products.push(new ProductViewModel(productid));
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
