@@ -98,12 +98,12 @@ namespace AngularAndCore.Controllers
 					for(var i = 0; i < res.Length-1; i++)
 					{
 						
-						if (res[i] == res[i + 1] || res[i] == res[i - 1])
+						if (res[i] == res[i + 1])
 						{
 							DubList.Add(res[i]);
 						}
 					}
-					if(DubList != null)
+					if(DubList.Count != 0)
 					{
 						var customerproductdel = customerOne.CustomerProducts.FirstOrDefault(sc => sc.ProductId == DubList[0]);
 						customerOne.CustomerProducts.Remove(customerproductdel);
@@ -112,37 +112,37 @@ namespace AngularAndCore.Controllers
 
 
 
-				//	List<int> idprodOne = new List<int>();
-				//	foreach (var t in customerOne.CustomerProducts)
-				//	{
-				//		idprodOne.Add(t.ProductId);
-				//	}
-					
-				//	int number = idprodCus[idprodCus.Count - 1];
+					List<int> idprodOne = new List<int>();
+					foreach (var t in customerOne.CustomerProducts)
+					{
+						idprodOne.Add(t.ProductId);
+					}
 
-				//	List<int> lold = new List<int>();
-				//	List<int> lnew = new List<int>();
-				//	foreach (var t in idprodOne)
-				//	{
-				//		if(number != t)
-				//		{
-				//			lold.Add(t);
-				//		}
-				//		else
-				//		{
-				//			lnew.Add(number);
-				//		}
+					int number = idprodCus[idprodCus.Count - 1];
 
-				//	}
+					List<int> lold = new List<int>();
+					List<int> lnew = new List<int>();
+					foreach (var t in idprodOne)
+					{
+						if (number != t)
+						{
+							lold.Add(t);
+						}
+						else
+						{
+							lnew.Add(number);
+						}
 
-				//	if (lnew.Count == 0)
-				//	{
-				//		customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
-				//	}			
-					
-				}	
-				
-				//db.Update(customerOne);
+					}
+
+					if (lnew.Count == 0)
+					{
+						customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
+					}
+
+				}
+
+				db.Update(customerOne);
 				db.SaveChanges();
 				return Ok(customerOne);
 			}
