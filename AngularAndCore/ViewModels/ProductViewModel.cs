@@ -16,14 +16,14 @@ namespace AngularAndCore.ViewModels
 			NameProduct = cp.Product.NameProduct;
 			Description = cp.Product.Description;
 			Price = cp.Product.Price;
-			//Id = cp.Product.Id;
+			Id = cp.Product.Id;
 		}
 		public ProductViewModel(Product p)
 		{
 			NameProduct = p.NameProduct;
 			Description = p.Description;
 			Price = p.Price;
-			//Id = p.Id;
+			Id = p.Id;
 		}
 		public ProductViewModel()
 		{

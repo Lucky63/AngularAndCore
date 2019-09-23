@@ -1,4 +1,4 @@
-﻿import { CustomerProduct } from "./customerProduct";
+﻿import { Product } from "./product";
 
 export class Customer {
 	constructor(
@@ -6,5 +6,5 @@ export class Customer {
 		public name?: string,
 		public phoneNumber?: number,
 		public address?: string,
-		public customerProducts?: CustomerProduct[]) { }
+		public products?: Product[]) { }
 }

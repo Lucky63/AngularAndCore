@@ -18,7 +18,7 @@
 	<div class="form-group">
 		<label>Продукты клиента</label>
 		<select class="form-control" name="productDel" [(ngModel)]="productDel">
-			<option *ngFor="let c of customer.products" [value]="c.productid">
+			<option *ngFor="let c of customer.products" [value]="c.id">
 				{{c.nameProduct}}
 			</option>
 		</select>

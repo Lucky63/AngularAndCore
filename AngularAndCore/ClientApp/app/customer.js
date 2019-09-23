@@ -1,10 +1,10 @@
 var Customer = /** @class */ (function () {
-    function Customer(id, name, phoneNumber, address, customerProducts) {
+    function Customer(id, name, phoneNumber, address, products) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.customerProducts = customerProducts;
+        this.products = products;
     }
     return Customer;
 }());

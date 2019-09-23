@@ -1,5 +1,7 @@
 var Product = /** @class */ (function () {
-    function Product(id, nameProduct, description, price) {
+    function Product(productid, customerid, id, nameProduct, description, price) {
+        this.productid = productid;
+        this.customerid = customerid;
         this.id = id;
         this.nameProduct = nameProduct;
         this.description = description;

@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { Customer } from '../customer';
 import { Product } from '../product';
-import { CustomerProduct } from '../customerproduct';
-import { CustomerViewModel } from '../customerViewModel';
-import { ProductViewModel } from '../productViewModel';
+
+
+
+
 
 @Component({
 	templateUrl: './customer-edit.component.html'
@@ -13,10 +14,10 @@ import { ProductViewModel } from '../productViewModel';
 export class CustomerEditComponent implements OnInit {
 
 	id: number;
-	customer: CustomerViewModel;    // изменяемый объект
+	customer: Customer;    // изменяемый объект
 	allproducts: Product[];
 	
-	num: number[];
+	
 	
 	loaded: boolean = false;
 
@@ -26,26 +27,22 @@ export class CustomerEditComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.id)
-			this.dataService.getCustomer(this.id).subscribe((data: CustomerViewModel) => {
-				this.customer = data, this.customer.products=data.products;
+			this.dataService.getCustomer(this.id).subscribe((data: Customer) => {
+				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
 		this.dataService.getProducts().subscribe((data: Product[]) => this.allproducts = data);
 
-		for (let i of this.customer.products) {
-			this.num.push(i.productid);
-		}
 		
 	}
 	
 
 	save(productid: number, productDel: number) {
 		if (productDel != null) {
-			var pos = this.num.indexOf(productDel);
-			this.customer.products.slice(pos, 1);
+			this.customer.products.push(new Product(productDel));
 		}
-		if (productid != null)
-			this.customer.products.push(new ProductViewModel(productid));
+		if (productid != null && productid != productDel)
+			this.customer.products.push(new Product(productid));
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
 		
 		

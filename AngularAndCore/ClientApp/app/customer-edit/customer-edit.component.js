@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { ProductViewModel } from '../productViewModel';
+import { Product } from '../product';
 var CustomerEditComponent = /** @class */ (function () {
     function CustomerEditComponent(dataService, router, activeRoute) {
         this.dataService = dataService;
@@ -22,24 +22,19 @@ var CustomerEditComponent = /** @class */ (function () {
         var _this = this;
         if (this.id)
             this.dataService.getCustomer(this.id).subscribe(function (data) {
-                _this.customer = data, _this.customer.products = data.products;
+                _this.customer = data;
                 if (_this.customer != null)
                     _this.loaded = true;
             });
         this.dataService.getProducts().subscribe(function (data) { return _this.allproducts = data; });
-        for (var _i = 0, _a = this.customer.products; _i < _a.length; _i++) {
-            var i = _a[_i];
-            this.num.push(i.productid);
-        }
     };
     CustomerEditComponent.prototype.save = function (productid, productDel) {
         var _this = this;
         if (productDel != null) {
-            var pos = this.num.indexOf(productDel);
-            this.customer.products.slice(pos, 1);
+            this.customer.products.push(new Product(productDel));
         }
-        if (productid != null)
-            this.customer.products.push(new ProductViewModel(productid));
+        if (productid != null && productid != productDel)
+            this.customer.products.push(new Product(productid));
         this.dataService.updateCustomer(this.customer).subscribe(function (data) { return _this.router.navigateByUrl("/"); });
     };
     CustomerEditComponent = __decorate([
