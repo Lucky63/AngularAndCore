@@ -110,8 +110,6 @@ namespace AngularAndCore.Controllers
 						db.SaveChanges();
 					}
 
-
-
 					List<int> idprodOne = new List<int>();
 					foreach (var t in customerOne.CustomerProducts)
 					{
@@ -146,9 +144,7 @@ namespace AngularAndCore.Controllers
 					{
 						db.Update(customerOne);
 						db.SaveChanges();
-						return Ok(customerOne);
-
-						
+						return Ok(customerOne);						
 					}
 					else if(DubList.Count == 0)
 					{
@@ -165,16 +161,12 @@ namespace AngularAndCore.Controllers
 							{
 								listNew.Add(number);
 							}
-
 						}
-
 						if (listNew.Count == 0)
 						{
 							customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
-						}
-						
-					}				
-
+						}						
+					}		
 				}
 
 				db.Update(customerOne);
