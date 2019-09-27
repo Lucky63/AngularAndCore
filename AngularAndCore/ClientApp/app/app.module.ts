@@ -9,6 +9,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { NotFoundComponent } from './not-found.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
@@ -28,7 +29,7 @@ const appRoutes: Routes = [
 	
 ];
 @NgModule({
-	imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+	imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes), NgxPaginationModule],
 	declarations: [AppComponent, ProductListComponent, CustomerListComponent, CustomerFormComponent,
 		CustomerCreateComponent, CustomerEditComponent, ProductCreateComponent, ProductEditComponent,
 		ProductFormComponent, NotFoundComponent],

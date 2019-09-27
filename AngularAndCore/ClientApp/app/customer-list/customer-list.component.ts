@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Customer } from '../customer';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
 	templateUrl: './customer-list.component.html'
