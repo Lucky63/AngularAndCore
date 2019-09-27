@@ -9,9 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 var CustomerListComponent = /** @class */ (function () {
-    function CustomerListComponent(dataService) {
+    function CustomerListComponent(dataService, route, router) {
+        var _this = this;
         this.dataService = dataService;
+        this.route = route;
+        this.router = router;
+        this.config = {
+            currentPage: 1,
+            itemsPerPage: 5,
+            totalItems: 0
+        };
+        this.route.queryParams.subscribe(function (params) { return _this.config.currentPage = params['page'] ? params['page'] : 1; });
     }
     CustomerListComponent.prototype.ngOnInit = function () {
         this.load();
@@ -19,6 +29,10 @@ var CustomerListComponent = /** @class */ (function () {
     CustomerListComponent.prototype.load = function () {
         var _this = this;
         this.dataService.getCustomers().subscribe(function (data) { return _this.customers = data; });
+    };
+    //Метод пагинации
+    CustomerListComponent.prototype.pageChange = function (newPage) {
+        this.router.navigate([''], { queryParams: { page: newPage } });
     };
     CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -28,7 +42,7 @@ var CustomerListComponent = /** @class */ (function () {
         Component({
             templateUrl: './customer-list.component.html'
         }),
-        __metadata("design:paramtypes", [DataService])
+        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router])
     ], CustomerListComponent);
     return CustomerListComponent;
 }());

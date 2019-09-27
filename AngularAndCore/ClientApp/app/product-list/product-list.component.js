@@ -9,9 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 var ProductListComponent = /** @class */ (function () {
-    function ProductListComponent(dataService) {
+    function ProductListComponent(dataService, route, router) {
+        var _this = this;
         this.dataService = dataService;
+        this.route = route;
+        this.router = router;
+        this.config = {
+            currentPage: 1,
+            itemsPerPage: 5,
+            totalItems: 0
+        };
+        route.queryParams.subscribe(function (params) { return _this.config.currentPage = params['page'] ? params['page'] : 1; });
     }
     ProductListComponent.prototype.ngOnInit = function () {
         this.load();
@@ -19,6 +29,10 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.load = function () {
         var _this = this;
         this.dataService.getProducts().subscribe(function (data) { return _this.products = data; });
+    };
+    //Метод пагинации
+    ProductListComponent.prototype.pageChange = function (newPage) {
+        this.router.navigate([''], { queryParams: { page: newPage } });
     };
     ProductListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -28,7 +42,7 @@ var ProductListComponent = /** @class */ (function () {
         Component({
             templateUrl: './product-list.component.html'
         }),
-        __metadata("design:paramtypes", [DataService])
+        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router])
     ], ProductListComponent);
     return ProductListComponent;
 }());

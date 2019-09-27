@@ -15,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let p of customers | paginate:{itemsPerPage: 5, currentPage:p}">
+		<tr *ngFor="let p of customers | paginate: config">
 			<td>{{p?.name}}</td>
 			<td>{{p?.phoneNumber}}</td>
 			<td>{{p?.address}}</td>
@@ -35,4 +35,4 @@
 		</tr>
 	</tbody>
 </table>
-<pagination-controls (pageChange)="p=$event"></pagination-controls>
+<pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
