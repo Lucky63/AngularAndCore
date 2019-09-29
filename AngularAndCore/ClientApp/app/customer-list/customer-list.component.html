@@ -6,16 +6,28 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<td>Имя</td>
-			<td>Номер телефона</td>
-			<td>Адрес</td>
-			<td>Продукты клиента</td>
-			<td>Операции</td>
+			<th [class.active]="order === 'name'"
+				(click)="setOrder('name')"
+				class="mdl-data-table__cell--non-numeric">
+				Имя<span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+			</th>
+			<th [class.active]="order === 'phoneNumber'"
+				(click)="setOrder('phoneNumber')"
+				class="mdl-data-table__cell--non-numeric">
+				Номер телефона<span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+			</th>
+			<th [class.active]="order === 'address'"
+				(click)="setOrder('address')"
+				class="mdl-data-table__cell--non-numeric">
+				Адрес<span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+			</th>
+			<th>Продукты клиента</th>
+			<th>Операции</th>
 
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let p of customers | paginate: config">
+		<tr *ngFor="let p of customers | paginate: config | orderBy: order:reverse:'case-insensitive'">
 			<td>{{p?.name}}</td>
 			<td>{{p?.phoneNumber}}</td>
 			<td>{{p?.address}}</td>

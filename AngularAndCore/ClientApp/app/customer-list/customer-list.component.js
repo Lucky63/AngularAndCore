@@ -10,18 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderPipe } from 'ngx-order-pipe';
 var CustomerListComponent = /** @class */ (function () {
-    function CustomerListComponent(dataService, route, router) {
+    ///////////////////////////////////////////////
+    function CustomerListComponent(dataService, route, router, orderPipe) {
         var _this = this;
         this.dataService = dataService;
         this.route = route;
         this.router = router;
+        this.orderPipe = orderPipe;
+        //Для сортировки
+        this.order = 'name';
+        this.reverse = false;
+        //Для сортировки
         this.config = {
             currentPage: 1,
             itemsPerPage: 5,
             totalItems: 0
         };
+        this.sortedCollection = orderPipe.transform(this.customers, 'name');
+        console.log(this.sortedCollection);
+        //////////////
+        // Для пагинации
         this.route.queryParams.subscribe(function (params) { return _this.config.currentPage = params['page'] ? params['page'] : 1; });
+        //////////////////////
     }
     CustomerListComponent.prototype.ngOnInit = function () {
         this.load();
@@ -34,6 +46,13 @@ var CustomerListComponent = /** @class */ (function () {
     CustomerListComponent.prototype.pageChange = function (newPage) {
         this.router.navigate([''], { queryParams: { page: newPage } });
     };
+    //Метод сортировки
+    CustomerListComponent.prototype.setOrder = function (value) {
+        if (this.order === value) {
+            this.reverse = !this.reverse;
+        }
+        this.order = value;
+    };
     CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
         this.dataService.deleteCustomer(id).subscribe(function (data) { return _this.load(); });
@@ -42,7 +61,7 @@ var CustomerListComponent = /** @class */ (function () {
         Component({
             templateUrl: './customer-list.component.html'
         }),
-        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router])
+        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router, OrderPipe])
     ], CustomerListComponent);
     return CustomerListComponent;
 }());
