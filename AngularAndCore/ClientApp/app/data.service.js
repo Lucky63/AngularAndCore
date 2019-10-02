@@ -22,6 +22,9 @@ var DataService = /** @class */ (function () {
         if (size === void 0) { size = 2; }
         return this.http.get("api/customers/GetCustomers/" + page + "/" + size);
     };
+    DataService.prototype.getCustomersCount = function () {
+        return this.http.get(this.url);
+    };
     DataService.prototype.createCustomer = function (customer) {
         return this.http.post(this.url, customer);
     };

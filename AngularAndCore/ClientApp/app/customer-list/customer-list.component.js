@@ -20,6 +20,7 @@ var CustomerListComponent = /** @class */ (function () {
     CustomerListComponent.prototype.load = function () {
         var _this = this;
         this.dataService.getCustomers(this.page).subscribe(function (data) { return _this.customersList = data; });
+        this.dataService.getCustomersCount().subscribe(function (data) { return _this.totalpage = data; });
     };
     CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -27,13 +28,17 @@ var CustomerListComponent = /** @class */ (function () {
     };
     CustomerListComponent.prototype.next = function (num) {
         var _this = this;
-        this.dataService.getCustomers(num).subscribe(function (data) { return _this.customersList = data; });
-        this.page = num;
+        if (num < this.totalpage) {
+            this.dataService.getCustomers(num).subscribe(function (data) { return _this.customersList = data; });
+            this.page = num;
+        }
     };
     CustomerListComponent.prototype.prev = function (numprev) {
         var _this = this;
-        this.dataService.getCustomers(numprev).subscribe(function (data) { return _this.customersList = data; });
-        this.page = numprev;
+        if (numprev > 0) {
+            this.dataService.getCustomers(numprev).subscribe(function (data) { return _this.customersList = data; });
+            this.page = numprev;
+        }
     };
     CustomerListComponent = __decorate([
         Component({

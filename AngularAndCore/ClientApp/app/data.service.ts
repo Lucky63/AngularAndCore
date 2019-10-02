@@ -19,7 +19,9 @@ export class DataService {
 	getCustomers(page: number, size = 2) {
 		return this.http.get(`api/customers/GetCustomers/${page}/${size}`);
 	}
-
+	getCustomersCount() {
+		return this.http.get(this.url);
+	}
 	createCustomer(customer: Customer) {
 		return this.http.post(this.url, customer);
 	}

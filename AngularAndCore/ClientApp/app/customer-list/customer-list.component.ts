@@ -23,7 +23,7 @@ export class CustomerListComponent implements OnInit {
 	}
 	load() {
 		this.dataService.getCustomers(this.page).subscribe((data: Customer[]) => this.customersList = data);
-		
+		this.dataService.getCustomersCount().subscribe((data: number) => this.totalpage = data);
 	}
 
 	
@@ -32,11 +32,17 @@ export class CustomerListComponent implements OnInit {
 		this.dataService.deleteCustomer(id).subscribe(data => this.load());
 	}
 	next(num: number) {
-		this.dataService.getCustomers(num).subscribe((data: Customer[]) => this.customersList = data);
-		this.page = num;		
+		if (num < this.totalpage) {
+			this.dataService.getCustomers(num).subscribe((data: Customer[]) => this.customersList = data);
+			this.page = num;	
+		}
+			
 	}
 	prev(numprev: number) {
-		this.dataService.getCustomers(numprev).subscribe((data: Customer[]) => this.customersList = data);
-		this.page = numprev;
+		if (numprev > 0) {
+			this.dataService.getCustomers(numprev).subscribe((data: Customer[]) => this.customersList = data);
+			this.page = numprev;
+		}
+		
 	}
 }

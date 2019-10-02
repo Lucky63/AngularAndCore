@@ -52,6 +52,13 @@ namespace AngularAndCore.Controllers
 			return Ok(cusvm);
 			
 		}
+		[HttpGet]
+		public IActionResult GetCustomersCount()
+		{
+			var TotelPage = db.Customers.Count();
+			return Ok(TotelPage);
+
+		}
 
 		[HttpGet("{id}")]
 		public CustomerViewModel Get(int id)
