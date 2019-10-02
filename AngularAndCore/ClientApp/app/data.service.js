@@ -20,7 +20,7 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.getCustomers = function (page, size) {
         if (size === void 0) { size = 2; }
-        return this.http.get("api/customers/someaction/" + page + "/" + size);
+        return this.http.get("api/customers/GetCustomers/" + page + "/" + size);
     };
     DataService.prototype.createCustomer = function (customer) {
         return this.http.post(this.url, customer);

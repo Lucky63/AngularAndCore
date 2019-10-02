@@ -1,8 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Customer } from '../customer';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrderPipe } from 'ngx-order-pipe';
 import { PageComp } from '../page';
 
 @Component({
