@@ -28,7 +28,7 @@ namespace AngularAndCore.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("PhoneNumber");
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("Id");
 

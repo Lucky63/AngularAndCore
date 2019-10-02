@@ -18,26 +18,39 @@ namespace AngularAndCore.Controllers
 			db = context;
 			if (!db.Customers.Any())
 			{
-				db.Customers.Add(new Customer { Name = "Jon", Address = "Apple", PhoneNumber = 79900 });
-				db.Customers.Add(new Customer { Name = "Bob", Address = "Samsung", PhoneNumber = 49900 });
-				db.Customers.Add(new Customer { Name = "Bill", Address = "Google", PhoneNumber = 52900 });
+				db.Customers.Add(new Customer { Name = "Jon", Address = "Apple", PhoneNumber = "79900" });
+				db.Customers.Add(new Customer { Name = "Bob", Address = "Samsung", PhoneNumber = "49900" });
+				db.Customers.Add(new Customer { Name = "Bill", Address = "Google", PhoneNumber = "52900" });
 				db.SaveChanges();
 			}
 		}
-		[HttpGet]
-		public IEnumerable<CustomerViewModel> Get()
-		{
+		[HttpGet("[action]")]
+		[HttpGet("[action]/{page}")]
+		[HttpGet("[action]/{page}/{size}")]
+		public IActionResult SomeAction(int page = 1, int size = 2)
+		{		
 			
-			List<CustomerViewModel> cusvm = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).ToList().Select(c => new CustomerViewModel
+			List<CustomerViewModel> cusvm = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.Skip((page - 1) * size)
+				.Take(size).ToList()
+				.Select(c => new CustomerViewModel
 			{
-			Id = c.Id,
-			Name = c.Name,
-			Address = c.Address,
-			PhoneNumber = c.PhoneNumber,
-			Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
-		}).ToList();
-			return cusvm.ToList();
-			//return db.Customers.Include(x=> x.CustomerProducts).ThenInclude(x=>x.Product).ToList();
+				Id = c.Id,
+				Name = c.Name,
+				Address = c.Address,
+				PhoneNumber = c.PhoneNumber,
+				Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
+			}).ToList();
+
+			//int totalPage = db.Customers.Count();
+			//PageViewModel pageViewModel = new PageViewModel()
+			//{
+			//	TotalPage = totalPage,
+			//	CustomerViewModels = cusvm
+			//};
+			
+			return Ok(cusvm);
+			
 		}
 
 		[HttpGet("{id}")]

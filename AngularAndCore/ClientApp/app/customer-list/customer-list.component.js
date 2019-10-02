@@ -9,59 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrderPipe } from 'ngx-order-pipe';
 var CustomerListComponent = /** @class */ (function () {
-    ///////////////////////////////////////////////
-    function CustomerListComponent(dataService, route, router, orderPipe) {
-        var _this = this;
+    function CustomerListComponent(dataService) {
         this.dataService = dataService;
-        this.route = route;
-        this.router = router;
-        this.orderPipe = orderPipe;
-        //Для сортировки
-        this.order = 'name';
-        this.reverse = false;
-        //Для сортировки
-        this.config = {
-            currentPage: 1,
-            itemsPerPage: 5,
-            totalItems: 0
-        };
-        this.sortedCollection = orderPipe.transform(this.customers, 'name');
-        console.log(this.sortedCollection);
-        //////////////
-        // Для пагинации
-        this.route.queryParams.subscribe(function (params) { return _this.config.currentPage = params['page'] ? params['page'] : 1; });
-        //////////////////////
+        this.page = 1;
     }
     CustomerListComponent.prototype.ngOnInit = function () {
         this.load();
     };
     CustomerListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getCustomers().subscribe(function (data) { return _this.customers = data; });
-    };
-    //Метод пагинации
-    CustomerListComponent.prototype.pageChange = function (newPage) {
-        this.router.navigate([''], { queryParams: { page: newPage } });
-    };
-    //Метод сортировки
-    CustomerListComponent.prototype.setOrder = function (value) {
-        if (this.order === value) {
-            this.reverse = !this.reverse;
-        }
-        this.order = value;
+        this.dataService.getCustomers(this.page).subscribe(function (data) { return _this.customersList = data; });
     };
     CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
         this.dataService.deleteCustomer(id).subscribe(function (data) { return _this.load(); });
     };
+    CustomerListComponent.prototype.next = function (num) {
+        var _this = this;
+        this.dataService.getCustomers(num).subscribe(function (data) { return _this.customersList = data; });
+        this.page = num;
+    };
+    CustomerListComponent.prototype.prev = function (numprev) {
+        var _this = this;
+        this.dataService.getCustomers(numprev).subscribe(function (data) { return _this.customersList = data; });
+        this.page = numprev;
+    };
     CustomerListComponent = __decorate([
         Component({
             templateUrl: './customer-list.component.html'
         }),
-        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router, OrderPipe])
+        __metadata("design:paramtypes", [DataService])
     ], CustomerListComponent);
     return CustomerListComponent;
 }());
