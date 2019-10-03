@@ -27,7 +27,7 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]")]
 		[HttpGet("[action]/{page}")]
 		[HttpGet("[action]/{page}/{size}")]
-		public IActionResult GetCustomers(int page = 1, int size = 2)
+		public IActionResult GetCustomers(int page = 1, int size = 3)
 		{		
 			
 			List<CustomerViewModel> cusvm = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
@@ -55,8 +55,8 @@ namespace AngularAndCore.Controllers
 		[HttpGet]
 		public IActionResult GetCustomersCount()
 		{
-			var TotelPage = db.Customers.Count();
-			return Ok(TotelPage);
+			var count = db.Customers.Count();
+			return Ok(count);
 
 		}
 

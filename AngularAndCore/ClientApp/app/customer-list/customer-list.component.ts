@@ -1,17 +1,19 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Customer } from '../customer';
-import { PageComp } from '../page';
+
 
 @Component({
 	templateUrl: './customer-list.component.html'
 })
 export class CustomerListComponent implements OnInit {
 	
-	allcomp: PageComp;
+	//allcomp: PageComp;
 	customersList: Customer[];
-	totalpage: number;
-	page: number = 1;
+	count: number;//Общее количество строк
+	page: number = 1;//Первая страница
+	size: number = 5;//Количество строк на странице
+	totalPage: number; //Общее количество страниц 
 	
 
 	constructor(private dataService: DataService) {}
@@ -22,8 +24,9 @@ export class CustomerListComponent implements OnInit {
 		
 	}
 	load() {
-		this.dataService.getCustomers(this.page).subscribe((data: Customer[]) => this.customersList = data);
-		this.dataService.getCustomersCount().subscribe((data: number) => this.totalpage = data);
+		this.dataService.getCustomers(this.page, this.size).subscribe((data: Customer[]) => this.customersList = data);
+		this.dataService.getCustomersCount().subscribe((data: number) => this.count = data);
+		this.totalPage = (this.count / this.size) + 1;
 	}
 
 	
@@ -31,18 +34,24 @@ export class CustomerListComponent implements OnInit {
 	delete(id: number) {
 		this.dataService.deleteCustomer(id).subscribe(data => this.load());
 	}
+	//Следующая страница
 	next(num: number) {
-		if (num < this.totalpage) {
-			this.dataService.getCustomers(num).subscribe((data: Customer[]) => this.customersList = data);
+		if (num < (this.count / this.size) + 1) {
+			this.dataService.getCustomers(num, this.size).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = num;	
-		}
-			
+		}			
 	}
+	//Предидущая страница
 	prev(numprev: number) {
 		if (numprev > 0) {
-			this.dataService.getCustomers(numprev).subscribe((data: Customer[]) => this.customersList = data);
+			this.dataService.getCustomers(numprev, this.size).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = numprev;
-		}
-		
+		}		
+	}
+
+	endpage(set: number) {		
+		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
+		this.dataService.getCustomers(rounded, this.size).subscribe((data: Customer[]) => this.customersList = data);
+		this.page = rounded;
 	}
 }
