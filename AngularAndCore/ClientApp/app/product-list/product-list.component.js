@@ -42,14 +42,14 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.prev = function (numprev) {
         var _this = this;
         if (numprev > 0) {
-            this.dataService.getCustomers(numprev, this.size).subscribe(function (data) { return _this.products = data; });
+            this.dataService.getProductsPagin(numprev, this.size).subscribe(function (data) { return _this.products = data; });
             this.page = numprev;
         }
     };
     ProductListComponent.prototype.endpage = function (set) {
         var _this = this;
-        var rounded = parseFloat((set + (this.count / this.size)).toFixed()); //Округляю число
-        this.dataService.getCustomers(rounded, this.size).subscribe(function (data) { return _this.products = data; });
+        var rounded = parseFloat((set + (this.count / this.size) - 1).toFixed()); //Округляю число
+        this.dataService.getProductsPagin(rounded, this.size).subscribe(function (data) { return _this.products = data; });
         this.page = rounded;
     };
     ProductListComponent = __decorate([

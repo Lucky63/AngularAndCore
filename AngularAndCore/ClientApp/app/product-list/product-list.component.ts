@@ -40,14 +40,14 @@ export class ProductListComponent implements OnInit {
 	//Предидущая страница
 	prev(numprev: number) {
 		if (numprev > 0) {
-			this.dataService.getCustomers(numprev, this.size).subscribe((data: Product[]) => this.products = data);
+			this.dataService.getProductsPagin(numprev, this.size).subscribe((data: Product[]) => this.products = data);
 			this.page = numprev;
 		}
 	}
 
 	endpage(set: number) {
-		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
-		this.dataService.getCustomers(rounded, this.size).subscribe((data: Product[]) => this.products = data);
+		var rounded = parseFloat((set + (this.count / this.size)-1).toFixed());//Округляю число
+		this.dataService.getProductsPagin(rounded, this.size).subscribe((data: Product[]) => this.products = data);
 		this.page = rounded;
 	}
 }
