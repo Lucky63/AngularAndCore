@@ -24,6 +24,36 @@ namespace AngularAndCore.Controllers
 				db.SaveChanges();
 			}
 		}
+
+		[HttpGet("[action]")]
+		[HttpGet("[action]/{page}")]
+		[HttpGet("[action]/{page}/{size}")]
+		public IActionResult GetProductsPagin(int page = 1, int size = 3)
+		{
+			List<ProductViewModel> prodvm = db.Products.Skip((page - 1) * size)
+				.Take(size).ToList().Select(c => new ProductViewModel
+			{
+				Id = c.Id,
+				NameProduct = c.NameProduct,
+				Description = c.Description,
+				Price = c.Price
+
+			}).ToList();
+			return Ok(prodvm.ToList());
+			
+		}
+
+		[HttpGet]
+		public IActionResult GetProductsCount()
+		{
+			var count = db.Products.Count();
+			return Ok(count);
+
+		}
+
+
+
+
 		[HttpGet]
 		public IEnumerable<ProductViewModel> Get()
 		{
@@ -33,7 +63,7 @@ namespace AngularAndCore.Controllers
 				NameProduct = c.NameProduct,
 				Description = c.Description,
 				Price = c.Price
-								
+
 			}).ToList();
 			return prodvm.ToList();
 			//return db.Products.Include(x => x.CustomerProducts).ToList();

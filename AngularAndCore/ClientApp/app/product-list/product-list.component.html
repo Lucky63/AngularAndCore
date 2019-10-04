@@ -13,7 +13,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let p of products | paginate: config">
+		<tr *ngFor="let p of products">
 			<td>{{p?.nameProduct}}</td>
 			<td>{{p?.description}}</td>
 			<td>{{p?.price}}</td>
@@ -24,4 +24,9 @@
 		</tr>
 	</tbody>
 </table>
-<pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+<input type="button" value="Prev" (click)="prev(page-1)" class="btn btn-default" />
+<input type="button" value="1" (click)="prev(1)" class="btn btn-default" />
+<input type="button" value="2" (click)="prev(2)" class="btn btn-default" />
+<input type="button" value="3" (click)="prev(3)" class="btn btn-default" />
+<input type="button" value="Next" (click)="next(page+1)" class="btn btn-default" />
+<input type="button" value="end" (click)="endpage(1)" class="btn btn-default" />

@@ -46,7 +46,15 @@ export class DataService {
 	getProduct(id:number) {
 		return this.http.get(this.url1 + '/' + id);
 	}
+
 	getProducts() {
+		return this.http.get(this.url1);
+	}
+
+	getProductsPagin(page: number, size = 2) {
+		return this.http.get(`/api/products/GetProductsPagin/${page}/${size}`);
+	}
+	getProductsCount() {
 		return this.http.get(this.url1);
 	}
 

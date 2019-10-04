@@ -7,30 +7,47 @@ import { ActivatedRoute, Router } from '@angular/router';
 	templateUrl: './product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
-	config: any;// Для пагинации
+	
 	products: Product[];
+	count: number;//Общее количество строк
+	page: number = 1;
+	size: number = 2;
 
 	constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {
-		this.config = {
-			currentPage: 1,
-			itemsPerPage: 5,
-			totalItems: 0
-		};
-		route.queryParams.subscribe(
-			params => this.config.currentPage = params['page'] ? params['page'] : 1);
+		
 	}
 
 	ngOnInit() {
 		this.load();
 	}
 	load() {
-		this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
+		this.dataService.getProductsPagin(this.page, this.size).subscribe((data: Product[]) => this.products = data);
+		this.dataService.getProductsCount().subscribe((data: number) => this.count = data);
 	}
-	//Метод пагинации
-	pageChange(newPage: number) {
-		this.router.navigate([''], { queryParams: { page: newPage } });
-	}
+	
 	delete(id: number) {
 		this.dataService.deleteProduct(id).subscribe(data => this.load());
+	}
+
+	//Следующая страница
+	next(num: number) {
+		if (num < (this.count / this.size) + 1) {
+			this.dataService.getProductsPagin(num, this.size).subscribe((data: Product[]) => this.products = data);
+			this.page = num;
+		}
+	}
+
+	//Предидущая страница
+	prev(numprev: number) {
+		if (numprev > 0) {
+			this.dataService.getCustomers(numprev, this.size).subscribe((data: Product[]) => this.products = data);
+			this.page = numprev;
+		}
+	}
+
+	endpage(set: number) {
+		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
+		this.dataService.getCustomers(rounded, this.size).subscribe((data: Product[]) => this.products = data);
+		this.page = rounded;
 	}
 }
