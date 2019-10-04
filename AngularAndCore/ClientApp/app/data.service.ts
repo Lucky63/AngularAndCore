@@ -55,7 +55,7 @@ export class DataService {
 		return this.http.get(`/api/products/GetProductsPagin/${page}/${size}`);
 	}
 	getProductsCount() {
-		return this.http.get(this.url1);
+		return this.http.get(`/api/products/GetProductsCount/`);
 	}
 
 	createProduct(product: Product) {

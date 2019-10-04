@@ -54,7 +54,7 @@ var DataService = /** @class */ (function () {
         return this.http.get("/api/products/GetProductsPagin/" + page + "/" + size);
     };
     DataService.prototype.getProductsCount = function () {
-        return this.http.get(this.url1);
+        return this.http.get("/api/products/GetProductsCount/");
     };
     DataService.prototype.createProduct = function (product) {
         return this.http.post(this.url1, product);

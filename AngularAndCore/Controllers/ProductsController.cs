@@ -43,15 +43,13 @@ namespace AngularAndCore.Controllers
 			
 		}
 
-		[HttpGet]
+		[HttpGet("[action]")]
 		public IActionResult GetProductsCount()
 		{
 			var count = db.Products.Count();
 			return Ok(count);
 
-		}
-
-
+		}	
 
 
 		[HttpGet]
@@ -66,7 +64,7 @@ namespace AngularAndCore.Controllers
 
 			}).ToList();
 			return prodvm.ToList();
-			//return db.Products.Include(x => x.CustomerProducts).ToList();
+			
 		}
 
 		[HttpGet("{id}")]
