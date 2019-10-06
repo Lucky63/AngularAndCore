@@ -18,9 +18,21 @@ namespace AngularAndCore.Controllers
 			db = context;
 			if (!db.Customers.Any())
 			{
+				db.Customers.Add(new Customer { Name = "Allan", Address = "Bribri", PhoneNumber = "784536" });
+				db.Customers.Add(new Customer { Name = "Filip", Address = "Statestomp", PhoneNumber = "744477" });
+				db.Customers.Add(new Customer { Name = "Mercy", Address = "Bombom", PhoneNumber = "5557755" });
 				db.Customers.Add(new Customer { Name = "Jon", Address = "Apple", PhoneNumber = "79900" });
 				db.Customers.Add(new Customer { Name = "Bob", Address = "Samsung", PhoneNumber = "49900" });
 				db.Customers.Add(new Customer { Name = "Bill", Address = "Google", PhoneNumber = "52900" });
+				db.Customers.Add(new Customer { Name = "Duglas", Address = "Paper", PhoneNumber = "80000" });
+				db.Customers.Add(new Customer { Name = "Rick", Address = "Zooongo", PhoneNumber = "4111111" });
+				db.Customers.Add(new Customer { Name = "Morty", Address = "Springfield", PhoneNumber = "10" });
+				db.Customers.Add(new Customer { Name = "Homer", Address = "Spring", PhoneNumber = "74147" });
+				db.Customers.Add(new Customer { Name = "Magie", Address = "Home", PhoneNumber = "546987" });
+				db.Customers.Add(new Customer { Name = "Bart", Address = "Gogogo", PhoneNumber = "00011100" });
+				db.Customers.Add(new Customer { Name = "Marge", Address = "HomeHome", PhoneNumber = "457896" });
+				db.Customers.Add(new Customer { Name = "Liza", Address = "School", PhoneNumber = "4111111" });
+				db.Customers.Add(new Customer { Name = "Moe", Address = "Bar", PhoneNumber = "10" });
 				db.SaveChanges();
 			}
 		}

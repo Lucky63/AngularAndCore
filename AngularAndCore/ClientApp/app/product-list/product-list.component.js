@@ -48,7 +48,7 @@ var ProductListComponent = /** @class */ (function () {
     };
     ProductListComponent.prototype.endpage = function (set) {
         var _this = this;
-        var rounded = parseFloat((set + (this.count / this.size) - 1).toFixed()); //Округляю число
+        var rounded = parseFloat((set + (this.count / this.size)).toFixed()); //Округляю число
         this.dataService.getProductsPagin(rounded, this.size).subscribe(function (data) { return _this.products = data; });
         this.page = rounded;
     };

@@ -13,7 +13,7 @@ var CustomerListComponent = /** @class */ (function () {
     function CustomerListComponent(dataService) {
         this.dataService = dataService;
         this.page = 1; //Первая страница
-        this.size = 2; //Количество строк на странице
+        this.size = 5; //Количество строк на странице
         this.order = 'Name';
         this.reverse = true;
     }

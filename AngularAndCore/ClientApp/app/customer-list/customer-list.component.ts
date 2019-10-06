@@ -12,7 +12,7 @@ export class CustomerListComponent implements OnInit {
 	customersList: Customer[];
 	count: number;//Общее количество строк
 	page: number = 1;//Первая страница
-	size: number = 2;//Количество строк на странице
+	size: number = 5;//Количество строк на странице
 	order: string = 'Name';
 	reverse: boolean = true;
 	
