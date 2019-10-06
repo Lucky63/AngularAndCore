@@ -16,8 +16,8 @@ export class DataService {
 		return this.http.get(this.url + '/' + id);
 	}
 
-	getCustomers(page: number, size = 2) {
-		return this.http.get(`api/customers/GetCustomers/${page}/${size}`);
+	getCustomers(page: number, size = 2, order:string) {
+		return this.http.get(`api/customers/GetCustomers/${page}/${size}/${order}`);
 	}
 	getCustomersCount() {
 		return this.http.get(this.url);

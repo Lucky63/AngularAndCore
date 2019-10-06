@@ -27,12 +27,62 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]")]
 		[HttpGet("[action]/{page}")]
 		[HttpGet("[action]/{page}/{size}")]
-		public IActionResult GetCustomers(int page = 1, int size = 3)
-		{		
-			
-			List<CustomerViewModel> cusvm = db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+		[HttpGet("[action]/{page}/{size}/{order}")]
+		public IActionResult GetCustomers(int page = 1, int size = 3, string order="Name")
+		{
+			IEnumerable<Customer> customer = db.Customers
+				.OrderBy(s => s.Name)
 				.Skip((page - 1) * size)
-				.Take(size).ToList()
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+			switch (order)
+			{				
+				case "NameDesc":
+					customer = db.Customers
+				.OrderByDescending(s => s.Name)
+				.Skip((page - 1) * size)
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+					break;
+				case "Address":
+					customer = db.Customers
+				.OrderBy(s => s.Address)
+				.Skip((page - 1) * size)
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+					break;
+				case "AddressDesc":
+					customer = db.Customers
+				.OrderByDescending(s => s.Address)
+				.Skip((page - 1) * size)
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+					break;
+
+				case "PhoneNumber":
+					customer = db.Customers
+				.OrderBy(s => s.PhoneNumber)
+				.Skip((page - 1) * size)
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+					break;
+				case "PhoneNumberDesc":
+					customer = db.Customers
+				.OrderByDescending(s => s.PhoneNumber)
+				.Skip((page - 1) * size)
+				.Take(size)
+				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
+				.ToList();
+					break;
+
+			}
+			List<CustomerViewModel> cusvm = customer
+				
 				.Select(c => new CustomerViewModel
 			{
 				Id = c.Id,
@@ -42,12 +92,6 @@ namespace AngularAndCore.Controllers
 				Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
 			}).ToList();
 
-			//int totalPage = db.Customers.Count();
-			//PageViewModel pageViewModel = new PageViewModel()
-			//{
-			//	TotalPage = totalPage,
-			//	CustomerViewModels = cusvm
-			//};
 			
 			return Ok(cusvm);
 			

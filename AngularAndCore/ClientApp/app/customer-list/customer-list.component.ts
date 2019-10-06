@@ -12,8 +12,9 @@ export class CustomerListComponent implements OnInit {
 	customersList: Customer[];
 	count: number;//Общее количество строк
 	page: number = 1;//Первая страница
-	size: number = 5;//Количество строк на странице
-	totalPage: number; //Общее количество страниц 
+	size: number = 2;//Количество строк на странице
+	order: string = 'Name';
+	reverse: boolean = true;
 	
 
 	constructor(private dataService: DataService) {}
@@ -24,9 +25,9 @@ export class CustomerListComponent implements OnInit {
 		
 	}
 	load() {
-		this.dataService.getCustomers(this.page, this.size).subscribe((data: Customer[]) => this.customersList = data);
+		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 		this.dataService.getCustomersCount().subscribe((data: number) => this.count = data);
-		this.totalPage = (this.count / this.size) + 1;
+		
 	}
 
 	
@@ -37,21 +38,62 @@ export class CustomerListComponent implements OnInit {
 	//Следующая страница
 	next(num: number) {
 		if (num < (this.count / this.size) + 1) {
-			this.dataService.getCustomers(num, this.size).subscribe((data: Customer[]) => this.customersList = data);
+			this.dataService.getCustomers(num, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = num;	
 		}			
 	}
 	//Предидущая страница
 	prev(numprev: number) {
 		if (numprev > 0) {
-			this.dataService.getCustomers(numprev, this.size).subscribe((data: Customer[]) => this.customersList = data);
+			this.dataService.getCustomers(numprev, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = numprev;
 		}		
 	}
 
 	endpage(set: number) {		
 		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
-		this.dataService.getCustomers(rounded, this.size).subscribe((data: Customer[]) => this.customersList = data);
+		this.dataService.getCustomers(rounded, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 		this.page = rounded;
 	}
+	//Сортировка
+	setOrderName(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.getCustomers(this.page, this.size, 'NameDesc').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'NameDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.getCustomers(this.page, this.size, 'Name').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'Name';
+		}
+		
+	}
+	setOrderPhone(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.getCustomers(this.page, this.size, 'PhoneNumberDesc').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'PhoneNumberDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.getCustomers(this.page, this.size, 'PhoneNumber').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'PhoneNumber';
+		}
+
+	}
+	setOrderAddress(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.getCustomers(this.page, this.size, 'AddressDesc').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'AddressDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.getCustomers(this.page, this.size, 'Address').subscribe((data: Customer[]) => this.customersList = data);
+			this.order = 'Address';
+		}
+
+	}
+
 }

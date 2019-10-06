@@ -18,9 +18,9 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getCustomer = function (id) {
         return this.http.get(this.url + '/' + id);
     };
-    DataService.prototype.getCustomers = function (page, size) {
+    DataService.prototype.getCustomers = function (page, size, order) {
         if (size === void 0) { size = 2; }
-        return this.http.get("api/customers/GetCustomers/" + page + "/" + size);
+        return this.http.get("api/customers/GetCustomers/" + page + "/" + size + "/" + order);
     };
     DataService.prototype.getCustomersCount = function () {
         return this.http.get(this.url);
