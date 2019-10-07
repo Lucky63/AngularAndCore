@@ -14,11 +14,9 @@
     <None Remove="ClientApp\app\customer-form.component.ts" />
     <None Remove="ClientApp\app\customer-list.component.ts" />
     <None Remove="ClientApp\app\customer.ts" />
-    <None Remove="ClientApp\app\customerProduct.ts" />
     <None Remove="ClientApp\app\customerProductViewModel.ts" />
     <None Remove="ClientApp\app\data.service.ts" />
     <None Remove="ClientApp\app\not-found.component.ts" />
-    <None Remove="ClientApp\app\page.ts" />
     <None Remove="ClientApp\app\product-create.component.ts" />
     <None Remove="ClientApp\app\product-edit.component.ts" />
     <None Remove="ClientApp\app\product-form.component.ts" />
@@ -40,11 +38,9 @@
     <TypeScriptCompile Include="ClientApp\app\customer-edit\customer-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer-form\customer-form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer-list\customer-list.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\customerProduct.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer.ts" />
     <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\page.ts" />
     <TypeScriptCompile Include="ClientApp\app\product-create\product-create.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\product-edit\product-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\product-form\product-form.component.ts" />

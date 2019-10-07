@@ -42,14 +42,18 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]/{page}/{size}/{order}")]
 		public IActionResult GetCustomers(int page = 1, int size = 3, string order="Name")
 		{
-			IEnumerable<Customer> customer = db.Customers
+
+			IEnumerable<Customer> customer=new List<Customer>();
+			switch (order)
+			{
+				case "Name":
+					customer = db.Customers
 				.OrderBy(s => s.Name)
 				.Skip((page - 1) * size)
 				.Take(size)
 				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
 				.ToList();
-			switch (order)
-			{				
+					break;
 				case "NameDesc":
 					customer = db.Customers
 				.OrderByDescending(s => s.Name)
