@@ -13,8 +13,8 @@ export class CustomerListComponent implements OnInit {
 	count: number;//Общее количество строк
 	page: number = 1;//Первая страница
 	size: number = 5;//Количество строк на странице
-	order: string = 'Name';
-	reverse: boolean = true;
+	order: string = '';
+	reverse: boolean = false;
 	
 
 	constructor(private dataService: DataService) {}

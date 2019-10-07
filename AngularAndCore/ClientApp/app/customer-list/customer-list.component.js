@@ -14,8 +14,8 @@ var CustomerListComponent = /** @class */ (function () {
         this.dataService = dataService;
         this.page = 1; //Первая страница
         this.size = 5; //Количество строк на странице
-        this.order = 'Name';
-        this.reverse = true;
+        this.order = '';
+        this.reverse = false;
     }
     CustomerListComponent.prototype.ngOnInit = function () {
         this.load();

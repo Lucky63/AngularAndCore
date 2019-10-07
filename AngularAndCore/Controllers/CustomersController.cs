@@ -40,65 +40,37 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]/{page}")]
 		[HttpGet("[action]/{page}/{size}")]
 		[HttpGet("[action]/{page}/{size}/{order}")]
-		public IActionResult GetCustomers(int page = 1, int size = 3, string order="Name")
+		public IActionResult GetCustomers(int page = 1, int size = 3, string order="")
 		{
 
-			IEnumerable<Customer> customer=new List<Customer>();
+			var customers=db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).AsQueryable();
 			switch (order)
 			{
 				case "Name":
-					customer = db.Customers
-				.OrderBy(s => s.Name)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderBy(s => s.Name);
 					break;
 				case "NameDesc":
-					customer = db.Customers
-				.OrderByDescending(s => s.Name)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderByDescending(s => s.Name);
 					break;
 				case "Address":
-					customer = db.Customers
-				.OrderBy(s => s.Address)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderBy(s => s.Address);
 					break;
 				case "AddressDesc":
-					customer = db.Customers
-				.OrderByDescending(s => s.Address)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderByDescending(s => s.Address);
 					break;
 
 				case "PhoneNumber":
-					customer = db.Customers
-				.OrderBy(s => s.PhoneNumber)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderBy(s => s.PhoneNumber);
 					break;
 				case "PhoneNumberDesc":
-					customer = db.Customers
-				.OrderByDescending(s => s.PhoneNumber)
-				.Skip((page - 1) * size)
-				.Take(size)
-				.Include(x => x.CustomerProducts).ThenInclude(x => x.Product)
-				.ToList();
+					customers = customers.OrderByDescending(s => s.PhoneNumber);
 					break;
 
 			}
-			List<CustomerViewModel> cusvm = customer
-				
+			List<CustomerViewModel> cusvm = customers
+				.Skip((page - 1) * size)
+				.Take(size)
+				.ToList()
 				.Select(c => new CustomerViewModel
 			{
 				Id = c.Id,
