@@ -28,10 +28,39 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]")]
 		[HttpGet("[action]/{page}")]
 		[HttpGet("[action]/{page}/{size}")]
-		public IActionResult GetProductsPagin(int page = 1, int size = 3)
+		[HttpGet("[action]/{page}/{size}/{order}")]
+		public IActionResult GetProductsMain(int page = 1, int size = 3, string order = "")
 		{
-			List<ProductViewModel> prodvm = db.Products.Skip((page - 1) * size)
-				.Take(size).ToList().Select(c => new ProductViewModel
+			var products = db.Products.AsQueryable();
+			switch (order)
+			{
+				case "Name":
+					products = products.OrderBy(s => s.NameProduct);
+					break;
+				case "NameDesc":
+					products = products.OrderByDescending(s => s.NameProduct);
+					break;
+				case "Description":
+					products = products.OrderBy(s => s.Description);
+					break;
+				case "DescriptionDesc":
+					products = products.OrderByDescending(s => s.Description);
+					break;
+
+				case "Price":
+					products = products.OrderBy(s => s.Price);
+					break;
+				case "PriceDesc":
+					products = products.OrderByDescending(s => s.Price);
+					break;
+
+			}
+
+			List<ProductViewModel> prodvm = products
+				.Skip((page - 1) * size)
+				.Take(size)
+				.ToList()
+				.Select(c => new ProductViewModel
 			{
 				Id = c.Id,
 				NameProduct = c.NameProduct,
@@ -39,7 +68,7 @@ namespace AngularAndCore.Controllers
 				Price = c.Price
 
 			}).ToList();
-			return Ok(prodvm.ToList());
+			return Ok(prodvm);
 			
 		}
 

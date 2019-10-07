@@ -16,14 +16,16 @@ var ProductListComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         this.page = 1;
-        this.size = 2;
+        this.size = 5;
+        this.order = '';
+        this.reverse = false;
     }
     ProductListComponent.prototype.ngOnInit = function () {
         this.load();
     };
     ProductListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getProductsPagin(this.page, this.size).subscribe(function (data) { return _this.products = data; });
+        this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe(function (data) { return _this.products = data; });
         this.dataService.getProductsCount().subscribe(function (data) { return _this.count = data; });
     };
     ProductListComponent.prototype.delete = function (id) {
@@ -34,7 +36,7 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.next = function (num) {
         var _this = this;
         if (num < (this.count / this.size) + 1) {
-            this.dataService.getProductsPagin(num, this.size).subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(num, this.size, this.order).subscribe(function (data) { return _this.products = data; });
             this.page = num;
         }
     };
@@ -42,15 +44,55 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.prev = function (numprev) {
         var _this = this;
         if (numprev > 0) {
-            this.dataService.getProductsPagin(numprev, this.size).subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe(function (data) { return _this.products = data; });
             this.page = numprev;
         }
     };
     ProductListComponent.prototype.endpage = function (set) {
         var _this = this;
         var rounded = parseFloat((set + (this.count / this.size)).toFixed()); //Округляю число
-        this.dataService.getProductsPagin(rounded, this.size).subscribe(function (data) { return _this.products = data; });
+        this.dataService.GetProductsMain(rounded, this.size, this.order).subscribe(function (data) { return _this.products = data; });
         this.page = rounded;
+    };
+    //Сортировка
+    ProductListComponent.prototype.setOrderName = function (value) {
+        var _this = this;
+        if (value === false) {
+            this.reverse = true;
+            this.dataService.GetProductsMain(this.page, this.size, 'NameDesc').subscribe(function (data) { return _this.products = data; });
+            this.order = 'NameDesc';
+        }
+        if (value === true) {
+            this.reverse = false;
+            this.dataService.GetProductsMain(this.page, this.size, 'Name').subscribe(function (data) { return _this.products = data; });
+            this.order = 'Name';
+        }
+    };
+    ProductListComponent.prototype.setOrderPhone = function (value) {
+        var _this = this;
+        if (value === false) {
+            this.reverse = true;
+            this.dataService.GetProductsMain(this.page, this.size, 'DescriptionDesc').subscribe(function (data) { return _this.products = data; });
+            this.order = 'DescriptionDesc';
+        }
+        if (value === true) {
+            this.reverse = false;
+            this.dataService.GetProductsMain(this.page, this.size, 'Description').subscribe(function (data) { return _this.products = data; });
+            this.order = 'Description';
+        }
+    };
+    ProductListComponent.prototype.setOrderAddress = function (value) {
+        var _this = this;
+        if (value === false) {
+            this.reverse = true;
+            this.dataService.GetProductsMain(this.page, this.size, 'PriceDesc').subscribe(function (data) { return _this.products = data; });
+            this.order = 'PriceDesc';
+        }
+        if (value === true) {
+            this.reverse = false;
+            this.dataService.GetProductsMain(this.page, this.size, 'Price').subscribe(function (data) { return _this.products = data; });
+            this.order = 'Price';
+        }
     };
     ProductListComponent = __decorate([
         Component({

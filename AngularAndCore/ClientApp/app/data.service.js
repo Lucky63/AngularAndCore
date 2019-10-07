@@ -13,7 +13,7 @@ var DataService = /** @class */ (function () {
     function DataService(http) {
         this.http = http;
         this.url = "/api/customers";
-        this.url1 = "/api/products";
+        this.urlProduct = "/api/products";
     }
     DataService.prototype.getCustomer = function (id) {
         return this.http.get(this.url + '/' + id);
@@ -30,40 +30,32 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.updateCustomer = function (customer) {
         return this.http.put(this.url + '/' + customer.id, customer, { responseType: 'text' });
-        //	pipe(
-        //	map((res: string) => {
-        //		try {
-        //			return JSON.parse(res);
-        //		} catch {
-        //			return null;
-        //		}
-        //}));
     };
     DataService.prototype.deleteCustomer = function (id) {
         return this.http.delete(this.url + '/' + id);
     };
     //Работа с продуктами
     DataService.prototype.getProduct = function (id) {
-        return this.http.get(this.url1 + '/' + id);
+        return this.http.get(this.urlProduct + '/' + id);
     };
     DataService.prototype.getProducts = function () {
-        return this.http.get(this.url1);
+        return this.http.get(this.urlProduct);
     };
-    DataService.prototype.getProductsPagin = function (page, size) {
+    DataService.prototype.GetProductsMain = function (page, size, order) {
         if (size === void 0) { size = 2; }
-        return this.http.get("/api/products/GetProductsPagin/" + page + "/" + size);
+        return this.http.get("/api/products/GetProductsMain/" + page + "/" + size + "/" + order);
     };
     DataService.prototype.getProductsCount = function () {
         return this.http.get("/api/products/GetProductsCount/");
     };
     DataService.prototype.createProduct = function (product) {
-        return this.http.post(this.url1, product);
+        return this.http.post(this.urlProduct, product);
     };
     DataService.prototype.updateProduct = function (product) {
-        return this.http.put(this.url1 + '/' + product.id, product);
+        return this.http.put(this.urlProduct + '/' + product.id, product);
     };
     DataService.prototype.deleteProduct = function (id) {
-        return this.http.delete(this.url1 + '/' + id);
+        return this.http.delete(this.urlProduct + '/' + id);
     };
     DataService = __decorate([
         Injectable(),

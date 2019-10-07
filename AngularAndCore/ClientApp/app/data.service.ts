@@ -8,7 +8,7 @@ import { Product } from './product';
 export class DataService {
 
 	private url = "/api/customers";
-	private url1 = "/api/products";
+	private urlProduct = "/api/products";
 
 	constructor(private http: HttpClient) {
 	}
@@ -27,15 +27,7 @@ export class DataService {
 	}
 	updateCustomer(customer: Customer) {
 
-		return this.http.put(this.url + '/' + customer.id, customer, { responseType: 'text' });
-		//	pipe(
-		//	map((res: string) => {
-		//		try {
-		//			return JSON.parse(res);
-		//		} catch {
-		//			return null;
-		//		}
-		//}));
+		return this.http.put(this.url + '/' + customer.id, customer, { responseType: 'text' });		
 	}
 	
 	deleteCustomer(id: number) {
@@ -44,28 +36,28 @@ export class DataService {
 
 	//Работа с продуктами
 	getProduct(id:number) {
-		return this.http.get(this.url1 + '/' + id);
+		return this.http.get(this.urlProduct + '/' + id);
 	}
 
 	getProducts() {
-		return this.http.get(this.url1);
+		return this.http.get(this.urlProduct);
 	}
 
-	getProductsPagin(page: number, size = 2) {
-		return this.http.get(`/api/products/GetProductsPagin/${page}/${size}`);
+	GetProductsMain(page: number, size = 2, order: string) {
+		return this.http.get(`/api/products/GetProductsMain/${page}/${size}/${order}`);
 	}
 	getProductsCount() {
 		return this.http.get(`/api/products/GetProductsCount/`);
 	}
 
 	createProduct(product: Product) {
-		return this.http.post(this.url1, product);
+		return this.http.post(this.urlProduct, product);
 	}
 	updateProduct(product: Product) {
 
-		return this.http.put(this.url1 + '/' + product.id, product);
+		return this.http.put(this.urlProduct + '/' + product.id, product);
 	}
 	deleteProduct(id: number) {
-		return this.http.delete(this.url1 + '/' + id);
+		return this.http.delete(this.urlProduct + '/' + id);
 	}
 }

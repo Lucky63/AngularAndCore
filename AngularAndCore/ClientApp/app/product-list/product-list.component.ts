@@ -11,7 +11,9 @@ export class ProductListComponent implements OnInit {
 	products: Product[];
 	count: number;//Общее количество строк
 	page: number = 1;
-	size: number = 2;
+	size: number = 5;
+	order: string = '';
+	reverse: boolean = false;
 
 	constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {
 		
@@ -21,7 +23,7 @@ export class ProductListComponent implements OnInit {
 		this.load();
 	}
 	load() {
-		this.dataService.getProductsPagin(this.page, this.size).subscribe((data: Product[]) => this.products = data);
+		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 		this.dataService.getProductsCount().subscribe((data: number) => this.count = data);
 	}
 	
@@ -32,7 +34,7 @@ export class ProductListComponent implements OnInit {
 	//Следующая страница
 	next(num: number) {
 		if (num < (this.count / this.size) + 1) {
-			this.dataService.getProductsPagin(num, this.size).subscribe((data: Product[]) => this.products = data);
+			this.dataService.GetProductsMain(num, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 			this.page = num;
 		}
 	}
@@ -40,14 +42,56 @@ export class ProductListComponent implements OnInit {
 	//Предидущая страница
 	prev(numprev: number) {
 		if (numprev > 0) {
-			this.dataService.getProductsPagin(numprev, this.size).subscribe((data: Product[]) => this.products = data);
+			this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 			this.page = numprev;
 		}
 	}
 
 	endpage(set: number) {
 		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
-		this.dataService.getProductsPagin(rounded, this.size).subscribe((data: Product[]) => this.products = data);
+		this.dataService.GetProductsMain(rounded, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 		this.page = rounded;
+	}
+
+	//Сортировка
+	setOrderName(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.GetProductsMain(this.page, this.size, 'NameDesc').subscribe((data: Product[]) => this.products = data);
+			this.order = 'NameDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.GetProductsMain(this.page, this.size, 'Name').subscribe((data: Product[]) => this.products = data);
+			this.order = 'Name';
+		}
+
+	}
+
+	setOrderPhone(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.GetProductsMain(this.page, this.size, 'DescriptionDesc').subscribe((data: Product[]) => this.products = data);
+			this.order = 'DescriptionDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.GetProductsMain(this.page, this.size, 'Description').subscribe((data: Product[]) => this.products = data);
+			this.order = 'Description';
+		}
+
+	}
+	setOrderAddress(value: boolean) {
+		if (value === false) {
+			this.reverse = true;
+			this.dataService.GetProductsMain(this.page, this.size, 'PriceDesc').subscribe((data: Product[]) => this.products = data);
+			this.order = 'PriceDesc';
+		}
+		if (value === true) {
+			this.reverse = false;
+			this.dataService.GetProductsMain(this.page, this.size, 'Price').subscribe((data: Product[]) => this.products = data);
+			this.order = 'Price';
+		}
+
 	}
 }

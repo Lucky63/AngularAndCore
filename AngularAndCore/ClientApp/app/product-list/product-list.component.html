@@ -6,9 +6,9 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<td>Модель</td>
-			<td>Производитель</td>
-			<td>Цена</td>
+			<th><input type="button" value="Модель" (click)="setOrderName(reverse)" class="btn btn-default" /></th>
+			<th><input type="button" value="Производитель" (click)="setOrderPhone(reverse)" class="btn btn-default" /></th>
+			<th><input type="button" value="Цена" (click)="setOrderAddress(reverse)" class="btn btn-default" /></th>
 			<td></td>
 		</tr>
 	</thead>
@@ -24,9 +24,9 @@
 		</tr>
 	</tbody>
 </table>
-<input type="button" value="Prev" (click)="prev(page-1)" class="btn btn-default" />
-<input type="button" value="1" (click)="prev(1)" class="btn btn-default" />
-<input type="button" value="2" (click)="prev(2)" class="btn btn-default" />
-<input type="button" value="3" (click)="prev(3)" class="btn btn-default" />
+<input type="button" value="Prev" (click)="prev(page-1)" [disabled]="page === 1" class="btn btn-default" />
+<input type="button" value="1" (click)="prev(1)" [disabled]="page === 1" class="btn btn-default" />
+<input type="button" value="2" (click)="prev(2)" [disabled]="page === 2" class="btn btn-default" />
+<input type="button" value="3" (click)="prev(3)" [disabled]="page === 3" class="btn btn-default" />
 <input type="button" value="Next" (click)="next(page+1)" class="btn btn-default" />
 <input type="button" value="end" (click)="endpage(0)" class="btn btn-default" />

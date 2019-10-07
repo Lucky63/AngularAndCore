@@ -20,17 +20,13 @@ export class CustomerListComponent implements OnInit {
 	constructor(private dataService: DataService) {}
 
 	ngOnInit() {
-		this.load();
-		
-		
-	}
-	load() {
-		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
-		this.dataService.getCustomersCount().subscribe((data: number) => this.count = data);
-		
+		this.load();		
 	}
 
-	
+	load() {
+		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
+		this.dataService.getCustomersCount().subscribe((data: number) => this.count = data);		
+	}	
 
 	delete(id: number) {
 		this.dataService.deleteCustomer(id).subscribe(data => this.load());
@@ -69,6 +65,7 @@ export class CustomerListComponent implements OnInit {
 		}
 		
 	}
+
 	setOrderPhone(value: boolean) {
 		if (value === false) {
 			this.reverse = true;
