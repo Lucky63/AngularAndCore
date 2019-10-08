@@ -89,7 +89,7 @@ namespace AngularAndCore.Controllers
 		{
 			var count = db.Customers.Count();
 			List<int> c = new List<int>();
-			for(var i =0; i <= count; i++)
+			for(var i =1; i <= count; i++)
 			{
 				c.Add(i);
 			}
