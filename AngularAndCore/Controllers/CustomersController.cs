@@ -88,7 +88,12 @@ namespace AngularAndCore.Controllers
 		public IActionResult GetCustomersCount()
 		{
 			var count = db.Customers.Count();
-			return Ok(count);
+			List<int> c = new List<int>();
+			for(var i =0; i <= count; i++)
+			{
+				c.Add(i);
+			}
+			return Ok(c);
 
 		}
 

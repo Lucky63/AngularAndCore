@@ -42,5 +42,11 @@
 <input type="button" value="Next" (click)="next(page+1)" class="btn btn-default" />
 <input type="button" value="end" (click)="endpage(0)" class="btn btn-default" />
 
+<span>
+	<div *ngFor="let i of count">
+	<button (click)="prev(i)">{{i}}</button>
+	</div>
+</span>
+
 
 
