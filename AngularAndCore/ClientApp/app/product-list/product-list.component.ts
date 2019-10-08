@@ -48,7 +48,7 @@ export class ProductListComponent implements OnInit {
 	}
 
 	endpage(set: number) {
-		var rounded = parseFloat((set + (this.count / this.size)).toFixed());//Округляю число
+		var rounded = Math.ceil(this.count / this.size) + set;//Округляю число
 		this.dataService.GetProductsMain(rounded, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 		this.page = rounded;
 	}

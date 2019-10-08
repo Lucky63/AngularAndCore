@@ -47,7 +47,7 @@ var CustomerListComponent = /** @class */ (function () {
     };
     CustomerListComponent.prototype.endpage = function (set) {
         var _this = this;
-        var rounded = parseFloat((set + (this.count / this.size)).toFixed()); //Округляю число
+        var rounded = Math.ceil(this.count / this.size) + set; //Округляю число
         this.dataService.getCustomers(rounded, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
         this.page = rounded;
     };
