@@ -33,7 +33,7 @@ export class CustomerListComponent implements OnInit {
 	}
 	//Следующая страница
 	next(num: number) {
-		if (num < (this.count.length / this.size) + 1) {
+		if (num < (this.count.length) + 1) {
 			this.dataService.getCustomers(num, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = num;	
 		}			
@@ -47,9 +47,9 @@ export class CustomerListComponent implements OnInit {
 	}
 
 	endpage(set: number) {		
-		var rounded = Math.ceil(this.count.length / this.size)+set;//Округляю число
-		this.dataService.getCustomers(rounded, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
-		this.page = rounded;
+		
+		this.dataService.getCustomers(set, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
+		this.page = set;
 	}
 	//Сортировка
 	setOrderName(value: boolean) {

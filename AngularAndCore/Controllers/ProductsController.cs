@@ -76,7 +76,15 @@ namespace AngularAndCore.Controllers
 		public IActionResult GetProductsCount()
 		{
 			var count = db.Products.Count();
-			return Ok(count);
+			int size = 5;
+			var res = Math.Ceiling(count / (double)size);
+			List<int> c = new List<int>();
+
+			for (var i = 1; i <= res; i++)
+			{
+				c.Add(i);
+			}
+			return Ok(c);
 
 		}	
 

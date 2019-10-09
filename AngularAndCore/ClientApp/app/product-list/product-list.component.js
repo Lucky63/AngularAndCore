@@ -35,7 +35,7 @@ var ProductListComponent = /** @class */ (function () {
     //Следующая страница
     ProductListComponent.prototype.next = function (num) {
         var _this = this;
-        if (num < (this.count / this.size) + 1) {
+        if (num < (this.count.length) + 1) {
             this.dataService.GetProductsMain(num, this.size, this.order).subscribe(function (data) { return _this.products = data; });
             this.page = num;
         }
@@ -50,9 +50,8 @@ var ProductListComponent = /** @class */ (function () {
     };
     ProductListComponent.prototype.endpage = function (set) {
         var _this = this;
-        var rounded = Math.ceil(this.count / this.size) + set; //Округляю число
-        this.dataService.GetProductsMain(rounded, this.size, this.order).subscribe(function (data) { return _this.products = data; });
-        this.page = rounded;
+        this.dataService.GetProductsMain(set, this.size, this.order).subscribe(function (data) { return _this.products = data; });
+        this.page = set;
     };
     //Сортировка
     ProductListComponent.prototype.setOrderName = function (value) {

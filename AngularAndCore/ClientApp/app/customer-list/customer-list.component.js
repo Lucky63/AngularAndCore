@@ -32,7 +32,7 @@ var CustomerListComponent = /** @class */ (function () {
     //Следующая страница
     CustomerListComponent.prototype.next = function (num) {
         var _this = this;
-        if (num < (this.count.length / this.size) + 1) {
+        if (num < (this.count.length) + 1) {
             this.dataService.getCustomers(num, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
             this.page = num;
         }
@@ -47,9 +47,8 @@ var CustomerListComponent = /** @class */ (function () {
     };
     CustomerListComponent.prototype.endpage = function (set) {
         var _this = this;
-        var rounded = Math.ceil(this.count.length / this.size) + set; //Округляю число
-        this.dataService.getCustomers(rounded, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
-        this.page = rounded;
+        this.dataService.getCustomers(set, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
+        this.page = set;
     };
     //Сортировка
     CustomerListComponent.prototype.setOrderName = function (value) {

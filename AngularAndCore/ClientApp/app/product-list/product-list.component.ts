@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
 	
 	products: Product[];
-	count: number;//Общее количество строк
+	count: number[];//Общее количество строк
 	page: number = 1;
 	size: number = 5;
 	order: string = '';
@@ -24,7 +24,7 @@ export class ProductListComponent implements OnInit {
 	}
 	load() {
 		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: Product[]) => this.products = data);
-		this.dataService.getProductsCount().subscribe((data: number) => this.count = data);
+		this.dataService.getProductsCount().subscribe((data: number[]) => this.count = data);
 	}
 	
 	delete(id: number) {
@@ -33,7 +33,7 @@ export class ProductListComponent implements OnInit {
 
 	//Следующая страница
 	next(num: number) {
-		if (num < (this.count / this.size) + 1) {
+		if (num < (this.count.length) + 1) {
 			this.dataService.GetProductsMain(num, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 			this.page = num;
 		}
@@ -47,10 +47,9 @@ export class ProductListComponent implements OnInit {
 		}
 	}
 
-	endpage(set: number) {
-		var rounded = Math.ceil(this.count / this.size) + set;//Округляю число
-		this.dataService.GetProductsMain(rounded, this.size, this.order).subscribe((data: Product[]) => this.products = data);
-		this.page = rounded;
+	endpage(set: number) {		
+		this.dataService.GetProductsMain(set, this.size, this.order).subscribe((data: Product[]) => this.products = data);
+		this.page = set;
 	}
 
 	//Сортировка

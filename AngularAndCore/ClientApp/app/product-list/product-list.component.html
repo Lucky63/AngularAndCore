@@ -25,8 +25,6 @@
 	</tbody>
 </table>
 <input type="button" value="Prev" (click)="prev(page-1)" [disabled]="page === 1" class="btn btn-default" />
-<input type="button" value="1" (click)="prev(1)" [disabled]="page === 1" class="btn btn-default" />
-<input type="button" value="2" (click)="prev(2)" [disabled]="page === 2" class="btn btn-default" />
-<input type="button" value="3" (click)="prev(3)" [disabled]="page === 3" class="btn btn-default" />
-<input type="button" value="Next" (click)="next(page+1)" class="btn btn-default" />
-<input type="button" value="end" (click)="endpage(0)" class="btn btn-default" />
+<input type="button" *ngFor="let i of count" [disabled]="i === page" value="{{i}}" (click)="prev(i)" class="btn btn-default">
+<input type="button" value="Next" (click)="next(page+1)" [disabled]="page === count.length" class="btn btn-default" />
+<input type="button" value="end" (click)="endpage(count.length)" [disabled]="page === count.length" class="btn btn-default" />
