@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit {
 
 	load() {
 		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: Product[]) => this.products = data);
-		this.dataService.getProductsCount().subscribe((data: number[]) => this.TotalPage = data);
+		this.dataService.getProductsTotalPage().subscribe((data: number[]) => this.TotalPage = data);
 	}
 	
 	delete(id: number) {

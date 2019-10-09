@@ -27,7 +27,7 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.load = function () {
         var _this = this;
         this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe(function (data) { return _this.products = data; });
-        this.dataService.getProductsCount().subscribe(function (data) { return _this.TotalPage = data; });
+        this.dataService.getProductsTotalPage().subscribe(function (data) { return _this.TotalPage = data; });
     };
     ProductListComponent.prototype.delete = function (id) {
         var _this = this;

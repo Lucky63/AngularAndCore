@@ -46,14 +46,12 @@ namespace AngularAndCore.Controllers
 				case "DescriptionDesc":
 					products = products.OrderByDescending(s => s.Description);
 					break;
-
 				case "Price":
 					products = products.OrderBy(s => s.Price);
 					break;
 				case "PriceDesc":
 					products = products.OrderByDescending(s => s.Price);
 					break;
-
 			}
 
 			List<ProductViewModel> prodvm = products
@@ -66,25 +64,24 @@ namespace AngularAndCore.Controllers
 				NameProduct = c.NameProduct,
 				Description = c.Description,
 				Price = c.Price
-
 			}).ToList();
 			return Ok(prodvm);
 			
 		}
 
 		[HttpGet("[action]")]
-		public IActionResult GetProductsCount()
+		public IActionResult GetProductsTotalPage()
 		{
 			var count = db.Products.Count();
 			int size = 5;
 			var res = Math.Ceiling(count / (double)size);
-			List<int> c = new List<int>();
+			List<int> TotalPage = new List<int>();
 
 			for (var i = 1; i <= res; i++)
 			{
-				c.Add(i);
+				TotalPage.Add(i);
 			}
-			return Ok(c);
+			return Ok(TotalPage);
 
 		}	
 
@@ -98,7 +95,6 @@ namespace AngularAndCore.Controllers
 				NameProduct = c.NameProduct,
 				Description = c.Description,
 				Price = c.Price
-
 			}).ToList();
 			return prodvm.ToList();
 			

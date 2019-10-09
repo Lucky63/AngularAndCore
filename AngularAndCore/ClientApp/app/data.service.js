@@ -22,7 +22,7 @@ var DataService = /** @class */ (function () {
         if (size === void 0) { size = 2; }
         return this.http.get("api/customers/GetCustomers/" + page + "/" + size + "/" + order);
     };
-    DataService.prototype.getCustomersCount = function () {
+    DataService.prototype.getCustomersTotalPage = function () {
         return this.http.get(this.url);
     };
     DataService.prototype.createCustomer = function (customer) {
@@ -45,8 +45,8 @@ var DataService = /** @class */ (function () {
         if (size === void 0) { size = 2; }
         return this.http.get("/api/products/GetProductsMain/" + page + "/" + size + "/" + order);
     };
-    DataService.prototype.getProductsCount = function () {
-        return this.http.get("/api/products/GetProductsCount/");
+    DataService.prototype.getProductsTotalPage = function () {
+        return this.http.get("/api/products/GetProductsTotalPage/");
     };
     DataService.prototype.createProduct = function (product) {
         return this.http.post(this.urlProduct, product);

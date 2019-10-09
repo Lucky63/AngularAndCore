@@ -25,7 +25,7 @@ export class CustomerListComponent implements OnInit {
 
 	load() {
 		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
-		this.dataService.getCustomersCount().subscribe((data: number[]) => this.TotalPage = data);		
+		this.dataService.getCustomersTotalPage().subscribe((data: number[]) => this.TotalPage = data);		
 	}	
 
 	delete(id: number) {

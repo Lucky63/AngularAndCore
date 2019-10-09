@@ -42,7 +42,6 @@ namespace AngularAndCore.Controllers
 		[HttpGet("[action]/{page}/{size}/{order}")]
 		public IActionResult GetCustomers(int page = 1, int size = 3, string order="")
 		{
-
 			var customers=db.Customers.Include(x => x.CustomerProducts).ThenInclude(x => x.Product).AsQueryable();
 			switch (order)
 			{
@@ -58,14 +57,12 @@ namespace AngularAndCore.Controllers
 				case "AddressDesc":
 					customers = customers.OrderByDescending(s => s.Address);
 					break;
-
 				case "PhoneNumber":
 					customers = customers.OrderBy(s => s.PhoneNumber);
 					break;
 				case "PhoneNumberDesc":
 					customers = customers.OrderByDescending(s => s.PhoneNumber);
 					break;
-
 			}
 			List<CustomerViewModel> cusvm = customers
 				.Skip((page - 1) * size)
@@ -78,26 +75,22 @@ namespace AngularAndCore.Controllers
 				Address = c.Address,
 				PhoneNumber = c.PhoneNumber,
 				Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
-			}).ToList();
-
-			
-			return Ok(cusvm);
-			
+			}).ToList();			
+			return Ok(cusvm);			
 		}
 		[HttpGet]
-		public IActionResult GetCustomersCount()
+		public IActionResult GetCustomersTotalPage()
 		{
 			var count = db.Customers.Count();
 			int size = 5;
 			var res = Math.Ceiling(count / (double)size);
-			List<int> c = new List<int>();
+			List<int> TotalPage = new List<int>();
 
 			for(var i =1; i <= res; i++)
 			{
-				c.Add(i);
+				TotalPage.Add(i);
 			}
-			return Ok(c);
-
+			return Ok(TotalPage);
 		}
 
 		[HttpGet("{id}")]
@@ -111,10 +104,7 @@ namespace AngularAndCore.Controllers
 				PhoneNumber = c.PhoneNumber,
 				Products = c.CustomerProducts.Select(x => new ProductViewModel(x)).ToList()
 			}).ToList();
-
-
-			CustomerViewModel customer = cusid.FirstOrDefault(x => x.Id == id);
-			
+			CustomerViewModel customer = cusid.FirstOrDefault(x => x.Id == id);			
 			return customer;
 		}
 		//Добавление пользователя
@@ -151,10 +141,8 @@ namespace AngularAndCore.Controllers
 					}
 					//Сортируем список
 					var res = idprodCus.OrderBy(t => t).ToArray();
-
 					//Список в котором хранится продукт на удаление
 					List<int> DubList = new List<int>();
-
 					for(var i = 0; i < res.Length-1; i++)
 					{
 						
@@ -163,6 +151,7 @@ namespace AngularAndCore.Controllers
 							DubList.Add(res[i]);
 						}
 					}
+
 					if(DubList.Count != 0)
 					{
 						var customerproductdel = customerOne.CustomerProducts.FirstOrDefault(sc => sc.ProductId == DubList[0]);
@@ -175,7 +164,6 @@ namespace AngularAndCore.Controllers
 					{
 						idprodOne.Add(t.ProductId);
 					}
-
 
 					if (DubList.Count == 1 && customerOne.CustomerProducts.Count+2 == customer.Products.Count - 1)
 					{
@@ -228,7 +216,6 @@ namespace AngularAndCore.Controllers
 						}						
 					}		
 				}
-
 				db.Update(customerOne);
 				db.SaveChanges();
 				return Ok(customerOne);
