@@ -14,8 +14,6 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { NotFoundComponent } from './not-found.component';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { OrderModule } from 'ngx-order-pipe';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerCreateComponent } from './customer-create/customer-create.component';
@@ -36,9 +34,12 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = __decorate([
         NgModule({
-            imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes), NgxPaginationModule, OrderModule],
-            declarations: [AppComponent, ProductListComponent, CustomerListComponent, CustomerFormComponent,
-                CustomerCreateComponent, CustomerEditComponent, ProductCreateComponent, ProductEditComponent,
+            imports: [BrowserModule, FormsModule, HttpClientModule,
+                RouterModule.forRoot(appRoutes)],
+            declarations: [AppComponent, ProductListComponent,
+                CustomerListComponent, CustomerFormComponent,
+                CustomerCreateComponent, CustomerEditComponent,
+                ProductCreateComponent, ProductEditComponent,
                 ProductFormComponent, NotFoundComponent],
             providers: [DataService],
             bootstrap: [AppComponent]

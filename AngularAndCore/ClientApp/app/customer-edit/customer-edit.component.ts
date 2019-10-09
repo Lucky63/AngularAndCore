@@ -4,10 +4,6 @@ import { DataService } from '../data.service';
 import { Customer } from '../customer';
 import { Product } from '../product';
 
-
-
-
-
 @Component({
 	templateUrl: './customer-edit.component.html'
 })
@@ -15,10 +11,7 @@ export class CustomerEditComponent implements OnInit {
 
 	id: number;
 	customer: Customer;    // изменяемый объект
-	allproducts: Product[];
-	
-	
-	
+	allproducts: Product[];	
 	loaded: boolean = false;
 
 	constructor(private dataService: DataService, private router: Router, activeRoute: ActivatedRoute) {
@@ -31,11 +24,8 @@ export class CustomerEditComponent implements OnInit {
 				this.customer = data;
 					if (this.customer != null) this.loaded = true;
 			});
-		this.dataService.getProducts().subscribe((data: Product[]) => this.allproducts = data);
-
-		
-	}
-	
+		this.dataService.getProducts().subscribe((data: Product[]) => this.allproducts = data);		
+	}	
 
 	save(productid: number, productDel: number) {
 		if (productDel != null) {
@@ -43,8 +33,6 @@ export class CustomerEditComponent implements OnInit {
 		}
 		if (productid != null && productid != productDel)
 			this.customer.products.push(new Product(productid));
-		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));
-		
-		
+		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));		
 	}
 }

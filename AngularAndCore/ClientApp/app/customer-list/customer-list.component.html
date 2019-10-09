@@ -11,7 +11,6 @@
 			<th><input type="button" value="Адрес" (click)="setOrderAddress(reverse)" class="btn btn-default" /></th>
 			<th>Продукты клиента</th>
 			<th>Операции</th>
-
 		</tr>
 	</thead>
 	<tbody>
@@ -25,19 +24,17 @@
 						{{c.nameProduct}}
 					</option>
 				</select>
-
 			</td>
 			<td>
 				<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Изменить</a>
 				<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Удалить</button>
 			</td>
-
 		</tr>
 	</tbody>
 </table>
-<input type="button" value="Prev" (click)="prev(page-1)" [disabled]="page === 1" class="btn btn-default" />
-<input type="button" *ngFor="let i of count" [disabled]="i === page" value="{{i}}"(click)="prev(i)" class="btn btn-default">
-<input type="button" value="Next" (click)="next(page+1)" [disabled]="page === count.length" class="btn btn-default" />
-<input type="button" value="end" (click)="endpage(count.length)" [disabled]="page === count.length" class="btn btn-default" />
+<input type="button" value="Prev" (click)="prevButAndAll(page-1)" [disabled]="page === 1" class="btn btn-default"/>
+<input type="button" *ngFor="let i of TotalPage" [disabled]="i === page" value="{{i}}"(click)="prevButAndAll(i)" class="btn btn-default">
+<input type="button" value="Next" (click)="nextBut(page+1)" [disabled]="page === TotalPage.length" class="btn btn-default"/>
+<input type="button" value="end" (click)="endpage(TotalPage.length)" [disabled]="page === TotalPage.length" class="btn btn-default"/>
 
 

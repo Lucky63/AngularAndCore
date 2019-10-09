@@ -7,9 +7,9 @@
 	<thead>
 		<tr>
 			<th><input type="button" value="Модель" (click)="setOrderName(reverse)" class="btn btn-default" /></th>
-			<th><input type="button" value="Производитель" (click)="setOrderPhone(reverse)" class="btn btn-default" /></th>
-			<th><input type="button" value="Цена" (click)="setOrderAddress(reverse)" class="btn btn-default" /></th>
-			<td></td>
+			<th><input type="button" value="Производитель" (click)="setOrderDescription(reverse)" class="btn btn-default" /></th>
+			<th><input type="button" value="Цена" (click)="setOrderPrice(reverse)" class="btn btn-default" /></th>
+			<td>Операции</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,7 +24,7 @@
 		</tr>
 	</tbody>
 </table>
-<input type="button" value="Prev" (click)="prev(page-1)" [disabled]="page === 1" class="btn btn-default" />
-<input type="button" *ngFor="let i of count" [disabled]="i === page" value="{{i}}" (click)="prev(i)" class="btn btn-default">
-<input type="button" value="Next" (click)="next(page+1)" [disabled]="page === count.length" class="btn btn-default" />
-<input type="button" value="end" (click)="endpage(count.length)" [disabled]="page === count.length" class="btn btn-default" />
+<input type="button" value="Prev" (click)="prevButAndAll(page-1)" [disabled]="page === 1" class="btn btn-default" />
+<input type="button" *ngFor="let i of TotalPage" [disabled]="i === page" value="{{i}}" (click)="prevButAndAll(i)" class="btn btn-default">
+<input type="button" value="Next" (click)="nextBut(page+1)" [disabled]="page === TotalPage.length" class="btn btn-default" />
+<input type="button" value="end" (click)="endpage(TotalPage.length)" [disabled]="page === TotalPage.length" class="btn btn-default" />

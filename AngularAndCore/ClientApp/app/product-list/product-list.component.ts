@@ -9,22 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
 	
 	products: Product[];
-	count: number[];//Общее количество строк
+	TotalPage: number[] = [];//Общее количество страниц
 	page: number = 1;
 	size: number = 5;
 	order: string = '';
 	reverse: boolean = false;
 
-	constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {
-		
-	}
+	constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {}
 
 	ngOnInit() {
 		this.load();
 	}
+
 	load() {
 		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: Product[]) => this.products = data);
-		this.dataService.getProductsCount().subscribe((data: number[]) => this.count = data);
+		this.dataService.getProductsCount().subscribe((data: number[]) => this.TotalPage = data);
 	}
 	
 	delete(id: number) {
@@ -32,15 +31,15 @@ export class ProductListComponent implements OnInit {
 	}
 
 	//Следующая страница
-	next(num: number) {
-		if (num < (this.count.length) + 1) {
+	nextBut(num: number) {
+		if (num < (this.TotalPage.length) + 1) {
 			this.dataService.GetProductsMain(num, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 			this.page = num;
 		}
 	}
 
 	//Предидущая страница
-	prev(numprev: number) {
+	prevButAndAll(numprev: number) {
 		if (numprev > 0) {
 			this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe((data: Product[]) => this.products = data);
 			this.page = numprev;
@@ -67,7 +66,7 @@ export class ProductListComponent implements OnInit {
 
 	}
 
-	setOrderPhone(value: boolean) {
+	setOrderDescription(value: boolean) {
 		if (value === false) {
 			this.reverse = true;
 			this.dataService.GetProductsMain(this.page, this.size, 'DescriptionDesc').subscribe((data: Product[]) => this.products = data);
@@ -80,7 +79,8 @@ export class ProductListComponent implements OnInit {
 		}
 
 	}
-	setOrderAddress(value: boolean) {
+
+	setOrderPrice(value: boolean) {
 		if (value === false) {
 			this.reverse = true;
 			this.dataService.GetProductsMain(this.page, this.size, 'PriceDesc').subscribe((data: Product[]) => this.products = data);

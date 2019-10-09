@@ -10,7 +10,7 @@ export class CustomerListComponent implements OnInit {
 	
 	//allcomp: PageComp;
 	customersList: Customer[];
-	count: number[];//Общее количество строк
+	TotalPage: number[]=[];//Общее количество страниц
 	page: number = 1;//Первая страница
 	size: number = 5;//Количество строк на странице
 	order: string = '';
@@ -25,21 +25,21 @@ export class CustomerListComponent implements OnInit {
 
 	load() {
 		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
-		this.dataService.getCustomersCount().subscribe((data: number[]) => this.count = data);		
+		this.dataService.getCustomersCount().subscribe((data: number[]) => this.TotalPage = data);		
 	}	
 
 	delete(id: number) {
 		this.dataService.deleteCustomer(id).subscribe(data => this.load());
 	}
 	//Следующая страница
-	next(num: number) {
-		if (num < (this.count.length) + 1) {
+	nextBut(num: number) {
+		if (num < (this.TotalPage.length) + 1) {
 			this.dataService.getCustomers(num, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = num;	
 		}			
 	}
 	//Предидущая страница
-	prev(numprev: number) {
+	prevButAndAll(numprev: number) {
 		if (numprev > 0) {
 			this.dataService.getCustomers(numprev, this.size, this.order).subscribe((data: Customer[]) => this.customersList = data);
 			this.page = numprev;

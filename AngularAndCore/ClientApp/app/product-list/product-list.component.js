@@ -15,6 +15,7 @@ var ProductListComponent = /** @class */ (function () {
         this.dataService = dataService;
         this.route = route;
         this.router = router;
+        this.TotalPage = []; //Общее количество страниц
         this.page = 1;
         this.size = 5;
         this.order = '';
@@ -26,22 +27,22 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.load = function () {
         var _this = this;
         this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe(function (data) { return _this.products = data; });
-        this.dataService.getProductsCount().subscribe(function (data) { return _this.count = data; });
+        this.dataService.getProductsCount().subscribe(function (data) { return _this.TotalPage = data; });
     };
     ProductListComponent.prototype.delete = function (id) {
         var _this = this;
         this.dataService.deleteProduct(id).subscribe(function (data) { return _this.load(); });
     };
     //Следующая страница
-    ProductListComponent.prototype.next = function (num) {
+    ProductListComponent.prototype.nextBut = function (num) {
         var _this = this;
-        if (num < (this.count.length) + 1) {
+        if (num < (this.TotalPage.length) + 1) {
             this.dataService.GetProductsMain(num, this.size, this.order).subscribe(function (data) { return _this.products = data; });
             this.page = num;
         }
     };
     //Предидущая страница
-    ProductListComponent.prototype.prev = function (numprev) {
+    ProductListComponent.prototype.prevButAndAll = function (numprev) {
         var _this = this;
         if (numprev > 0) {
             this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe(function (data) { return _this.products = data; });
@@ -67,7 +68,7 @@ var ProductListComponent = /** @class */ (function () {
             this.order = 'Name';
         }
     };
-    ProductListComponent.prototype.setOrderPhone = function (value) {
+    ProductListComponent.prototype.setOrderDescription = function (value) {
         var _this = this;
         if (value === false) {
             this.reverse = true;
@@ -80,7 +81,7 @@ var ProductListComponent = /** @class */ (function () {
             this.order = 'Description';
         }
     };
-    ProductListComponent.prototype.setOrderAddress = function (value) {
+    ProductListComponent.prototype.setOrderPrice = function (value) {
         var _this = this;
         if (value === false) {
             this.reverse = true;
