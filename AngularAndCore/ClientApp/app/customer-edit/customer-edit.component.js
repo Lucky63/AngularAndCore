@@ -31,7 +31,12 @@ var CustomerEditComponent = /** @class */ (function () {
     CustomerEditComponent.prototype.save = function (productid, productDel) {
         var _this = this;
         if (productDel != null) {
-            this.customer.products.push(new Product(productDel));
+            var index = [];
+            for (var _i = 0, _a = this.customer.products; _i < _a.length; _i++) {
+                var i = _a[_i];
+                index.push(i.id);
+            }
+            this.customer.products.splice(index.indexOf(parseInt(String(productDel), 10)), 1);
         }
         if (productid != null && productid != productDel)
             this.customer.products.push(new Product(productid));

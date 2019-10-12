@@ -65,8 +65,7 @@ namespace AngularAndCore.Controllers
 				Description = c.Description,
 				Price = c.Price
 			}).ToList();
-			return Ok(prodvm);
-			
+			return Ok(prodvm);			
 		}
 
 		[HttpGet("[action]")]
@@ -84,7 +83,6 @@ namespace AngularAndCore.Controllers
 			return Ok(TotalPage);
 
 		}	
-
 
 		[HttpGet]
 		public IEnumerable<ProductViewModel> Get()

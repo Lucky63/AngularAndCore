@@ -36,6 +36,7 @@ namespace AngularAndCore.Controllers
 				db.SaveChanges();
 			}
 		}
+
 		[HttpGet("[action]")]
 		[HttpGet("[action]/{page}")]
 		[HttpGet("[action]/{page}/{size}")]
@@ -78,6 +79,7 @@ namespace AngularAndCore.Controllers
 			}).ToList();			
 			return Ok(cusvm);			
 		}
+
 		[HttpGet]
 		public IActionResult GetCustomersTotalPage()
 		{
@@ -121,104 +123,40 @@ namespace AngularAndCore.Controllers
 		}
 		//Редактирование пользователя
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody]CustomerViewModel customer)
+		public IActionResult Put(int id, [FromBody]CustomerViewModel customerViewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				Customer customerOne = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).FirstOrDefault(x=>x.Id== id);
-				customerOne.Name = customer.Name;
-				customerOne.Address = customer.Address;
-				customerOne.PhoneNumber = customer.PhoneNumber;
-				
-				if (customerOne.CustomerProducts.Count < customer.Products.Count)
-				{
-					//Полeчаем айдишники всех продуктов в списке
-					List<int> idprodCus = new List<int>();
+				Customer customer = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).FirstOrDefault(x=>x.Id== id);
+				customer.Name = customer.Name;
+				customer.Address = customer.Address;
+				customer.PhoneNumber = customer.PhoneNumber;
 
-					foreach (var t in customer.Products)
-					{
-						idprodCus.Add(t.Productid);
-					}
-					//Сортируем список
-					var res = idprodCus.OrderBy(t => t).ToArray();
-					//Список в котором хранится продукт на удаление
-					List<int> DubList = new List<int>();
-					for(var i = 0; i < res.Length-1; i++)
-					{
-						
-						if (res[i] == res[i + 1])
-						{
-							DubList.Add(res[i]);
-						}
-					}
+				var deletedProductIds = customer.CustomerProducts.Select(x => x.ProductId)
+						.Except(customerViewModel.Products.Select(x => x.Productid)).ToList();
 
-					if(DubList.Count != 0)
-					{
-						var customerproductdel = customerOne.CustomerProducts.FirstOrDefault(sc => sc.ProductId == DubList[0]);
-						customerOne.CustomerProducts.Remove(customerproductdel);
-						db.SaveChanges();
-					}
+				var addProductIds = customerViewModel.Products.Select(x => x.Productid)
+						.Except(customer.CustomerProducts.Select(x => x.ProductId)).ToList();
 
-					List<int> idprodOne = new List<int>();
-					foreach (var t in customerOne.CustomerProducts)
-					{
-						idprodOne.Add(t.ProductId);
-					}
-
-					if (DubList.Count == 1 && customerOne.CustomerProducts.Count+2 == customer.Products.Count - 1)
-					{
-						int number = idprodCus[idprodCus.Count - 1];
-						List<int> listOld = new List<int>();
-						List<int> listNew = new List<int>();
-						foreach (var t in idprodOne)
-						{
-							if (number != t)
-							{
-								listOld.Add(t);
-							}
-							else
-							{
-								listNew.Add(number);
-							}
-
-						}
-
-						if (listNew.Count == 0)
-						{
-							customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
-						}
-					}					
-					else if (DubList.Count == 1 && customerOne.CustomerProducts.Count+1 == customer.Products.Count)
-					{
-						db.Update(customerOne);
-						db.SaveChanges();
-						return Ok(customerOne);						
-					}
-					else if(DubList.Count == 0)
-					{
-						int number = idprodCus[idprodCus.Count - 1];
-						List<int> listOld = new List<int>();
-						List<int> listNew = new List<int>();
-						foreach (var t in idprodOne)
-						{
-							if (number != t)
-							{
-								listOld.Add(t);
-							}
-							else
-							{
-								listNew.Add(number);
-							}
-						}
-						if (listNew.Count == 0)
-						{
-							customerOne.CustomerProducts.Add(new CustomerProduct() { ProductId = number });
-						}						
-					}		
+				if (deletedProductIds.Count != 0)
+				{					
+					var customerproductdel = customer.CustomerProducts.First(sc => sc.ProductId == deletedProductIds[0]);
+					customer.CustomerProducts.Remove(customerproductdel);					
+					db.SaveChanges();
 				}
-				db.Update(customerOne);
+
+				if (addProductIds.Count != 0)
+				{
+					foreach(var i in addProductIds)
+					{
+						customer.CustomerProducts.Add(new CustomerProduct() { ProductId = i });
+					}
+					
+				}
+				
+				db.Update(customer);
 				db.SaveChanges();
-				return Ok(customerOne);
+				return Ok(customer);
 			}
 			return BadRequest(ModelState);
 		}

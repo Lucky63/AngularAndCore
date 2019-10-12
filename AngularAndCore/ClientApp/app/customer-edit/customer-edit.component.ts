@@ -29,8 +29,13 @@ export class CustomerEditComponent implements OnInit {
 
 	save(productid: number, productDel: number) {
 		if (productDel != null) {
-			this.customer.products.push(new Product(productDel));
+			let index: number[] = [];
+			for (let i of this.customer.products) {
+				index.push(i.id);
+			}			
+			this.customer.products.splice(index.indexOf(parseInt(String(productDel), 10)), 1);
 		}
+
 		if (productid != null && productid != productDel)
 			this.customer.products.push(new Product(productid));
 		this.dataService.updateCustomer(this.customer).subscribe(data => this.router.navigateByUrl("/"));		
