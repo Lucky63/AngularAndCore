@@ -65,6 +65,7 @@ namespace AngularAndCore.Controllers
 					customers = customers.OrderByDescending(s => s.PhoneNumber);
 					break;
 			}
+
 			List<CustomerViewModel> cusvm = customers
 				.Skip((page - 1) * size)
 				.Take(size)
@@ -76,8 +77,22 @@ namespace AngularAndCore.Controllers
 				Address = c.Address,
 				PhoneNumber = c.PhoneNumber,
 				Products = c.CustomerProducts.Select(x=>new ProductViewModel(x)).ToList()
-			}).ToList();			
-			return Ok(cusvm);			
+			}).ToList();
+
+			var count = db.Customers.Count();
+			var res = Math.Ceiling(count / (double)size);
+			List<int> TotalPage = new List<int>();
+
+			for (var i = 1; i <= res; i++)
+			{
+				TotalPage.Add(i);
+			}
+			IndexViewModel viewModel = new IndexViewModel
+			{
+				Customers = cusvm,
+				TotalPage = TotalPage
+			};
+			return Ok(viewModel);			
 		}
 
 		[HttpGet]

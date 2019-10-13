@@ -23,7 +23,8 @@ var CustomerListComponent = /** @class */ (function () {
     };
     CustomerListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getCustomers(this.page, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
+        this.dataService.getCustomers(this.page, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
+        //this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: IndexViewModel) => this.TotalPage = data.TotalPage);
         this.dataService.getCustomersTotalPage().subscribe(function (data) { return _this.TotalPage = data; });
     };
     CustomerListComponent.prototype.delete = function (id) {
@@ -34,7 +35,7 @@ var CustomerListComponent = /** @class */ (function () {
     CustomerListComponent.prototype.nextBut = function (num) {
         var _this = this;
         if (num < (this.TotalPage.length) + 1) {
-            this.dataService.getCustomers(num, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(num, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
             this.page = num;
         }
     };
@@ -42,13 +43,13 @@ var CustomerListComponent = /** @class */ (function () {
     CustomerListComponent.prototype.prevButAndAll = function (numprev) {
         var _this = this;
         if (numprev > 0) {
-            this.dataService.getCustomers(numprev, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(numprev, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
             this.page = numprev;
         }
     };
     CustomerListComponent.prototype.endpage = function (set) {
         var _this = this;
-        this.dataService.getCustomers(set, this.size, this.order).subscribe(function (data) { return _this.customersList = data; });
+        this.dataService.getCustomers(set, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
         this.page = set;
     };
     //Сортировка
@@ -56,12 +57,12 @@ var CustomerListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.getCustomers(this.page, this.size, 'NameDesc').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'NameDesc').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'NameDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.getCustomers(this.page, this.size, 'Name').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'Name').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'Name';
         }
     };
@@ -69,12 +70,12 @@ var CustomerListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.getCustomers(this.page, this.size, 'PhoneNumberDesc').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'PhoneNumberDesc').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'PhoneNumberDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.getCustomers(this.page, this.size, 'PhoneNumber').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'PhoneNumber').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'PhoneNumber';
         }
     };
@@ -82,12 +83,12 @@ var CustomerListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.getCustomers(this.page, this.size, 'AddressDesc').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'AddressDesc').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'AddressDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.getCustomers(this.page, this.size, 'Address').subscribe(function (data) { return _this.customersList = data; });
+            this.dataService.getCustomers(this.page, this.size, 'Address').subscribe(function (data) { return _this.customersList = data.customers; });
             this.order = 'Address';
         }
     };

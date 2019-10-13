@@ -16,6 +16,7 @@
     <None Remove="ClientApp\app\customer.ts" />
     <None Remove="ClientApp\app\customerProductViewModel.ts" />
     <None Remove="ClientApp\app\data.service.ts" />
+    <None Remove="ClientApp\app\indexViewModel.ts" />
     <None Remove="ClientApp\app\not-found.component.ts" />
     <None Remove="ClientApp\app\product-create.component.ts" />
     <None Remove="ClientApp\app\product-edit.component.ts" />
@@ -40,6 +41,7 @@
     <TypeScriptCompile Include="ClientApp\app\customer-list\customer-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\customer.ts" />
     <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\indexViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\product-create\product-create.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\product-edit\product-edit.component.ts" />
