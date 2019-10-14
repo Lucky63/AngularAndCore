@@ -12,7 +12,7 @@ import { DataService } from '../data.service';
 var CustomerListComponent = /** @class */ (function () {
     function CustomerListComponent(dataService) {
         this.dataService = dataService;
-        this.TotalPage = []; //Общее количество страниц
+        this.totalPage = []; //Общее количество страниц
         this.page = 1; //Первая страница
         this.size = 5; //Количество строк на странице
         this.order = '';
@@ -23,9 +23,7 @@ var CustomerListComponent = /** @class */ (function () {
     };
     CustomerListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.getCustomers(this.page, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
-        //this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: IndexViewModel) => this.TotalPage = data.TotalPage);
-        this.dataService.getCustomersTotalPage().subscribe(function (data) { return _this.TotalPage = data; });
+        this.dataService.getCustomers(this.page, this.size, this.order).subscribe(function (data) { _this.customersList = data.customers; _this.totalPage = data.totalPage; });
     };
     CustomerListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -34,7 +32,7 @@ var CustomerListComponent = /** @class */ (function () {
     //Следующая страница
     CustomerListComponent.prototype.nextBut = function (num) {
         var _this = this;
-        if (num < (this.TotalPage.length) + 1) {
+        if (num < (this.totalPage.length) + 1) {
             this.dataService.getCustomers(num, this.size, this.order).subscribe(function (data) { return _this.customersList = data.customers; });
             this.page = num;
         }

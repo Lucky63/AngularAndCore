@@ -11,7 +11,7 @@ export class CustomerListComponent implements OnInit {
 	
 	allcomp: IndexViewModel;
 	customersList: Customer[];
-	TotalPage: number[]=[];//Общее количество страниц
+	totalPage: number[]=[];//Общее количество страниц
 	page: number = 1;//Первая страница
 	size: number = 5;//Количество строк на странице
 	order: string = '';
@@ -25,9 +25,7 @@ export class CustomerListComponent implements OnInit {
 	}
 
 	load() {
-		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: IndexViewModel) => this.customersList = data.customers);
-		//this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: IndexViewModel) => this.TotalPage = data.TotalPage);
-		this.dataService.getCustomersTotalPage().subscribe((data: number[]) => this.TotalPage = data);		
+		this.dataService.getCustomers(this.page, this.size, this.order).subscribe((data: IndexViewModel) => { this.customersList = data.customers; this.totalPage = data.totalPage});				
 	}	
 
 	delete(id: number) {
@@ -35,7 +33,7 @@ export class CustomerListComponent implements OnInit {
 	}
 	//Следующая страница
 	nextBut(num: number) {
-		if (num < (this.TotalPage.length) + 1) {
+		if (num < (this.totalPage.length) + 1) {
 			this.dataService.getCustomers(num, this.size, this.order).subscribe((data: IndexViewModel) => this.customersList = data.customers);
 			this.page = num;	
 		}			

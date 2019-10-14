@@ -3,5 +3,5 @@
 export class IndexViewModel {
 	constructor(
 		public customers: Customer[]=[],
-		public TotalPage: number[]=[], ) { }
+		public totalPage: number[]=[], ) { }
 }

@@ -33,8 +33,8 @@
 	</tbody>
 </table>
 <input type="button" value="Prev" (click)="prevButAndAll(page-1)" [disabled]="page === 1" class="btn btn-default"/>
-<input type="button" *ngFor="let i of TotalPage" [disabled]="i === page" value="{{i}}"(click)="prevButAndAll(i)" class="btn btn-default">
-<input type="button" value="Next" (click)="nextBut(page+1)" [disabled]="page === TotalPage.length" class="btn btn-default"/>
-<input type="button" value="end" (click)="endpage(TotalPage.length)" [disabled]="page === TotalPage.length" class="btn btn-default"/>
+<input type="button" *ngFor="let i of totalPage" [disabled]="i === page" value="{{i}}"(click)="prevButAndAll(i)" class="btn btn-default">
+<input type="button" value="Next" (click)="nextBut(page+1)" [disabled]="page === totalPage.length" class="btn btn-default"/>
+<input type="button" value="end" (click)="endpage(totalPage.length)" [disabled]="page === totalPage.length" class="btn btn-default"/>
 
 

@@ -1,9 +1,9 @@
 var IndexViewModel = /** @class */ (function () {
-    function IndexViewModel(customers, TotalPage) {
+    function IndexViewModel(customers, totalPage) {
         if (customers === void 0) { customers = []; }
-        if (TotalPage === void 0) { TotalPage = []; }
+        if (totalPage === void 0) { totalPage = []; }
         this.customers = customers;
-        this.TotalPage = TotalPage;
+        this.totalPage = totalPage;
     }
     return IndexViewModel;
 }());
