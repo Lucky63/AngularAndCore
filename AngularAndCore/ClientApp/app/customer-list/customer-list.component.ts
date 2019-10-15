@@ -7,16 +7,14 @@ import { IndexCustomer } from '../IndexCustomer';
 @Component({
 	templateUrl: './customer-list.component.html'
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent implements OnInit {	
 	
-	allcomp: IndexCustomer;
 	customersList: Customer[];
 	totalPage: number[]=[];//Общее количество страниц
 	page: number = 1;//Первая страница
 	size: number = 5;//Количество строк на странице
 	order: string = '';
-	reverse: boolean = false;
-	
+	reverse: boolean = false;	
 
 	constructor(private dataService: DataService) {}
 
@@ -62,8 +60,7 @@ export class CustomerListComponent implements OnInit {
 			this.reverse = false;
 			this.dataService.getCustomers(this.page, this.size, 'Name').subscribe((data: IndexCustomer) => this.customersList = data.customers);
 			this.order = 'Name';
-		}
-		
+		}		
 	}
 
 	setOrderPhone(value: boolean) {
@@ -77,8 +74,8 @@ export class CustomerListComponent implements OnInit {
 			this.dataService.getCustomers(this.page, this.size, 'PhoneNumber').subscribe((data: IndexCustomer) => this.customersList = data.customers);
 			this.order = 'PhoneNumber';
 		}
-
 	}
+
 	setOrderAddress(value: boolean) {
 		if (value === false) {
 			this.reverse = true;
@@ -90,7 +87,6 @@ export class CustomerListComponent implements OnInit {
 			this.dataService.getCustomers(this.page, this.size, 'Address').subscribe((data: IndexCustomer) => this.customersList = data.customers);
 			this.order = 'Address';
 		}
-
 	}
 
 }

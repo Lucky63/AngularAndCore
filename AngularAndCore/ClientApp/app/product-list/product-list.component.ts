@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Product } from '../product';
-import { ActivatedRoute, Router } from '@angular/router';
 import { IndexProduct } from '../indexProducts';
 
 @Component({
@@ -9,7 +8,6 @@ import { IndexProduct } from '../indexProducts';
 })
 export class ProductListComponent implements OnInit {
 
-	allprod: IndexProduct;
 	products: Product[];
 	totalPage: number[] = [];//Общее количество страниц
 	page: number = 1;
@@ -24,8 +22,7 @@ export class ProductListComponent implements OnInit {
 	}
 
 	load() {
-		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: IndexProduct) => { this.products = data.products; this.totalPage=data.totalPage });
-		//this.dataService.getProductsTotalPage().subscribe((data: number[]) => this.totalPage = data);
+		this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe((data: IndexProduct) => { this.products = data.products; this.totalPage=data.totalPage });		
 	}
 	
 	delete(id: number) {
@@ -65,7 +62,6 @@ export class ProductListComponent implements OnInit {
 			this.dataService.GetProductsMain(this.page, this.size, 'Name').subscribe((data: IndexProduct) => this.products = data.products);
 			this.order = 'Name';
 		}
-
 	}
 
 	setOrderDescription(value: boolean) {
@@ -79,7 +75,6 @@ export class ProductListComponent implements OnInit {
 			this.dataService.GetProductsMain(this.page, this.size, 'Description').subscribe((data: IndexProduct) => this.products = data.products);
 			this.order = 'Description';
 		}
-
 	}
 
 	setOrderPrice(value: boolean) {
@@ -93,6 +88,5 @@ export class ProductListComponent implements OnInit {
 			this.dataService.GetProductsMain(this.page, this.size, 'Price').subscribe((data: IndexProduct) => this.products = data.products);
 			this.order = 'Price';
 		}
-
 	}
 }
