@@ -19,9 +19,7 @@ export class DataService {
 	getCustomers(page: number, size = 2, order:string) {
 		return this.http.get(`api/customers/GetCustomers/${page}/${size}/${order}`);
 	}
-	getCustomersTotalPage() {
-		return this.http.get(this.url);
-	}
+	
 	createCustomer(customer: Customer) {
 		return this.http.post(this.url, customer);
 	}
@@ -46,10 +44,7 @@ export class DataService {
 	GetProductsMain(page: number, size = 2, order: string) {
 		return this.http.get(`/api/products/GetProductsMain/${page}/${size}/${order}`);
 	}
-	getProductsTotalPage() {
-		return this.http.get(`/api/products/GetProductsTotalPage/`);
-	}
-
+	
 	createProduct(product: Product) {
 		return this.http.post(this.urlProduct, product);
 	}

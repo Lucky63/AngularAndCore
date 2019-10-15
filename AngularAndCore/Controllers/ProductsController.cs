@@ -82,9 +82,7 @@ namespace AngularAndCore.Controllers
 			};
 
 			return Ok(productsViewModel);			
-		}
-
-		
+		}		
 
 		[HttpGet]
 		public IEnumerable<ProductViewModel> Get()
