@@ -94,22 +94,7 @@ namespace AngularAndCore.Controllers
 			};
 			return Ok(viewModel);			
 		}
-
-		[HttpGet]
-		public IActionResult GetCustomersTotalPage()
-		{
-			var count = db.Customers.Count();
-			int size = 5;
-			var res = Math.Ceiling(count / (double)size);
-			List<int> TotalPage = new List<int>();
-
-			for(var i =1; i <= res; i++)
-			{
-				TotalPage.Add(i);
-			}
-			return Ok(TotalPage);
-		}
-
+		
 		[HttpGet("{id}")]
 		public CustomerViewModel Get(int id)
 		{

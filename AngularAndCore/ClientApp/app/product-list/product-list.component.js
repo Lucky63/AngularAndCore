@@ -9,13 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute, Router } from '@angular/router';
 var ProductListComponent = /** @class */ (function () {
-    function ProductListComponent(dataService, route, router) {
+    function ProductListComponent(dataService) {
         this.dataService = dataService;
-        this.route = route;
-        this.router = router;
-        this.TotalPage = []; //Общее количество страниц
+        this.totalPage = []; //Общее количество страниц
         this.page = 1;
         this.size = 5;
         this.order = '';
@@ -26,8 +23,8 @@ var ProductListComponent = /** @class */ (function () {
     };
     ProductListComponent.prototype.load = function () {
         var _this = this;
-        this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe(function (data) { return _this.products = data; });
-        this.dataService.getProductsTotalPage().subscribe(function (data) { return _this.TotalPage = data; });
+        this.dataService.GetProductsMain(this.page, this.size, this.order).subscribe(function (data) { _this.products = data.products; _this.totalPage = data.totalPage; });
+        //this.dataService.getProductsTotalPage().subscribe((data: number[]) => this.totalPage = data);
     };
     ProductListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -36,8 +33,8 @@ var ProductListComponent = /** @class */ (function () {
     //Следующая страница
     ProductListComponent.prototype.nextBut = function (num) {
         var _this = this;
-        if (num < (this.TotalPage.length) + 1) {
-            this.dataService.GetProductsMain(num, this.size, this.order).subscribe(function (data) { return _this.products = data; });
+        if (num < (this.totalPage.length) + 1) {
+            this.dataService.GetProductsMain(num, this.size, this.order).subscribe(function (data) { return _this.products = data.products; });
             this.page = num;
         }
     };
@@ -45,13 +42,13 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.prevButAndAll = function (numprev) {
         var _this = this;
         if (numprev > 0) {
-            this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(numprev, this.size, this.order).subscribe(function (data) { return _this.products = data.products; });
             this.page = numprev;
         }
     };
     ProductListComponent.prototype.endpage = function (set) {
         var _this = this;
-        this.dataService.GetProductsMain(set, this.size, this.order).subscribe(function (data) { return _this.products = data; });
+        this.dataService.GetProductsMain(set, this.size, this.order).subscribe(function (data) { return _this.products = data.products; });
         this.page = set;
     };
     //Сортировка
@@ -59,12 +56,12 @@ var ProductListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.GetProductsMain(this.page, this.size, 'NameDesc').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'NameDesc').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'NameDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.GetProductsMain(this.page, this.size, 'Name').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'Name').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'Name';
         }
     };
@@ -72,12 +69,12 @@ var ProductListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.GetProductsMain(this.page, this.size, 'DescriptionDesc').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'DescriptionDesc').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'DescriptionDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.GetProductsMain(this.page, this.size, 'Description').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'Description').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'Description';
         }
     };
@@ -85,12 +82,12 @@ var ProductListComponent = /** @class */ (function () {
         var _this = this;
         if (value === false) {
             this.reverse = true;
-            this.dataService.GetProductsMain(this.page, this.size, 'PriceDesc').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'PriceDesc').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'PriceDesc';
         }
         if (value === true) {
             this.reverse = false;
-            this.dataService.GetProductsMain(this.page, this.size, 'Price').subscribe(function (data) { return _this.products = data; });
+            this.dataService.GetProductsMain(this.page, this.size, 'Price').subscribe(function (data) { return _this.products = data.products; });
             this.order = 'Price';
         }
     };
@@ -98,7 +95,7 @@ var ProductListComponent = /** @class */ (function () {
         Component({
             templateUrl: './product-list.component.html'
         }),
-        __metadata("design:paramtypes", [DataService, ActivatedRoute, Router])
+        __metadata("design:paramtypes", [DataService])
     ], ProductListComponent);
     return ProductListComponent;
 }());

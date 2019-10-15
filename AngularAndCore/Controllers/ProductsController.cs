@@ -65,14 +65,8 @@ namespace AngularAndCore.Controllers
 				Description = c.Description,
 				Price = c.Price
 			}).ToList();
-			return Ok(prodvm);			
-		}
 
-		[HttpGet("[action]")]
-		public IActionResult GetProductsTotalPage()
-		{
 			var count = db.Products.Count();
-			int size = 5;
 			var res = Math.Ceiling(count / (double)size);
 			List<int> TotalPage = new List<int>();
 
@@ -80,9 +74,17 @@ namespace AngularAndCore.Controllers
 			{
 				TotalPage.Add(i);
 			}
-			return Ok(TotalPage);
 
-		}	
+			ProductsViewModel productsViewModel = new ProductsViewModel
+			{
+				Products = prodvm,
+				TotalPage=TotalPage
+			};
+
+			return Ok(productsViewModel);			
+		}
+
+		
 
 		[HttpGet]
 		public IEnumerable<ProductViewModel> Get()
