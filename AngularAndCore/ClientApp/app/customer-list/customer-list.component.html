@@ -1,0 +1,40 @@
+﻿<a routerLink="/product" class="btn btn-sm btn-primary">Продукты</a>
+<h1>Список Пользователей</h1>
+<div>
+	<a routerLink="/createCustomer" class="btn btn-default">Добавить</a>
+</div>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th><input type="button" value="Имя" (click)="setOrderName(reverse)" class="btn btn-default" /></th>
+			<th><input type="button" value="Номер телефона" (click)="setOrderPhone(reverse)" class="btn btn-default" /></th>
+			<th><input type="button" value="Адрес" (click)="setOrderAddress(reverse)" class="btn btn-default" /></th>
+			<th>Продукты клиента</th>
+			<th>Операции</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let p of customersList">
+			<td>{{p?.name}}</td>
+			<td>{{p?.phoneNumber}}</td>
+			<td>{{p?.address}}</td>
+			<td>
+				<select class="form-control">
+					<option *ngFor="let c of  p.products">
+						{{c.nameProduct}}
+					</option>
+				</select>
+			</td>
+			<td>
+				<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Изменить</a>
+				<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Удалить</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<input type="button" value="Prev" (click)="prevButAndAll(page-1)" [disabled]="page === 1" class="btn btn-default"/>
+<input type="button" *ngFor="let i of totalPage" [disabled]="i === page" value="{{i}}"(click)="prevButAndAll(i)" class="btn btn-default">
+<input type="button" value="Next" (click)="nextBut(page+1)" [disabled]="page === totalPage.length" class="btn btn-default"/>
+<input type="button" value="end" (click)="endpage(totalPage.length)" [disabled]="page === totalPage.length" class="btn btn-default"/>
+
+
